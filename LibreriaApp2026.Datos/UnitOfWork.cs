@@ -9,15 +9,21 @@ namespace LibreriaApp2026.Datos
         public IEditorialRepositorio Editoriales { get; }
         public IAutorRepositorio Autores { get; }
         public ITemaRepositorio Temas { get; }
+        public ILibroFisicoRepositorio LibrosFisicos { get; }
+        public ILibroDigitalRepositorio LibrosDigitales { get; }
 
         public UnitOfWork(IEditorialRepositorio editorialRepositorio,
             IAutorRepositorio autorRepositorio,
             ITemaRepositorio temaRepositorio,
+            ILibroFisicoRepositorio libroFisicoRepositorio,
+            ILibroDigitalRepositorio libroDigitalRepositorio,
             LibreriaDbContext context)
         {
             Editoriales = editorialRepositorio;
             Autores = autorRepositorio;
             Temas = temaRepositorio;
+            LibrosFisicos = libroFisicoRepositorio;
+            LibrosDigitales = libroDigitalRepositorio;
             _context = context;
         }
 

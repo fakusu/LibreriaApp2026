@@ -11,9 +11,7 @@ namespace LibreriaApp2026.Datos.Repositorios
 
         public bool EstaRelacionado(Editorial editorial)
         {
-            //luego relacionar con Libros:
-            //return _context.Libros.Any(l => l.EditorialId == editorial.EditorialId);
-            return false;
+            return _context.Libros.Any(l => l.EditorialId == editorial.EditorialId);
         }
 
         public bool Existe(Editorial editorial)

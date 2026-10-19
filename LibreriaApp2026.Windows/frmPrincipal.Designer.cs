@@ -34,6 +34,8 @@ namespace LibreriaApp2026.Windows
             btnSalir = new Button();
             label1 = new Label();
             panelMenu = new Panel();
+            btnLibrosDigitales = new Button();
+            btnLibrosFisicos = new Button();
             btnTemas = new Button();
             btnAutores = new Button();
             btnEditoriales = new Button();
@@ -98,6 +100,8 @@ namespace LibreriaApp2026.Windows
             //
             // panelMenu
             //
+            panelMenu.Controls.Add(btnLibrosDigitales);
+            panelMenu.Controls.Add(btnLibrosFisicos);
             panelMenu.Controls.Add(btnTemas);
             panelMenu.Controls.Add(btnAutores);
             panelMenu.Controls.Add(btnEditoriales);
@@ -106,6 +110,26 @@ namespace LibreriaApp2026.Windows
             panelMenu.Name = "panelMenu";
             panelMenu.Size = new Size(238, 465);
             panelMenu.TabIndex = 2;
+            //
+            // btnLibrosDigitales
+            //
+            btnLibrosDigitales.Location = new Point(37, 200);
+            btnLibrosDigitales.Name = "btnLibrosDigitales";
+            btnLibrosDigitales.Size = new Size(171, 37);
+            btnLibrosDigitales.TabIndex = 4;
+            btnLibrosDigitales.Text = "Libros Digitales";
+            btnLibrosDigitales.UseVisualStyleBackColor = true;
+            btnLibrosDigitales.Click += btnLibrosDigitales_Click;
+            //
+            // btnLibrosFisicos
+            //
+            btnLibrosFisicos.Location = new Point(37, 157);
+            btnLibrosFisicos.Name = "btnLibrosFisicos";
+            btnLibrosFisicos.Size = new Size(171, 37);
+            btnLibrosFisicos.TabIndex = 3;
+            btnLibrosFisicos.Text = "Libros Físicos";
+            btnLibrosFisicos.UseVisualStyleBackColor = true;
+            btnLibrosFisicos.Click += btnLibrosFisicos_Click;
             //
             // btnTemas
             //
@@ -196,6 +220,8 @@ namespace LibreriaApp2026.Windows
         private Button btnEditoriales;
         private Button btnAutores;
         private Button btnTemas;
+        private Button btnLibrosFisicos;
+        private Button btnLibrosDigitales;
         private Panel panelContent;
         private Label label4;
         private Label label3;

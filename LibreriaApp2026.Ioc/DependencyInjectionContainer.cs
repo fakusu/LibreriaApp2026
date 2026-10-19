@@ -3,6 +3,8 @@ using LibreriaApp2026.Datos.Interfaces;
 using LibreriaApp2026.Datos.Repositorios;
 using LibreriaApp2026.Servicios.DTOs.Autor;
 using LibreriaApp2026.Servicios.DTOs.Editorial;
+using LibreriaApp2026.Servicios.DTOs.LibroDigital;
+using LibreriaApp2026.Servicios.DTOs.LibroFisico;
 using LibreriaApp2026.Servicios.DTOs.Tema;
 using LibreriaApp2026.Servicios.Interfaces;
 using LibreriaApp2026.Servicios.Servicios;
@@ -32,6 +34,16 @@ namespace LibreriaApp2026.Ioc
             services.AddScoped<ITemaServicio, TemaServicio>();
             services.AddScoped<IValidator<TemaCreateDto>, TemaCreateDtoValidator>();
             services.AddScoped<IValidator<TemaUpdateDto>, TemaUpdateDtoValidator>();
+
+            services.AddScoped<ILibroFisicoRepositorio, LibroFisicoRepositorio>();
+            services.AddScoped<ILibroFisicoServicio, LibroFisicoServicio>();
+            services.AddScoped<IValidator<LibroFisicoCreateDto>, LibroFisicoCreateDtoValidator>();
+            services.AddScoped<IValidator<LibroFisicoUpdateDto>, LibroFisicoUpdateDtoValidator>();
+
+            services.AddScoped<ILibroDigitalRepositorio, LibroDigitalRepositorio>();
+            services.AddScoped<ILibroDigitalServicio, LibroDigitalServicio>();
+            services.AddScoped<IValidator<LibroDigitalCreateDto>, LibroDigitalCreateDtoValidator>();
+            services.AddScoped<IValidator<LibroDigitalUpdateDto>, LibroDigitalUpdateDtoValidator>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             return services;

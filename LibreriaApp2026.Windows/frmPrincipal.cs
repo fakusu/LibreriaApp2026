@@ -47,5 +47,23 @@ namespace LibreriaApp2026.Windows
                 frm.ShowDialog();
             }
         }
+
+        private void btnLibrosFisicos_Click(object sender, EventArgs e)
+        {
+            using (var frm = _serviceProvider.GetRequiredService<frmLibrosFisicos>())
+            {
+                frm.Text = "Lista de Libros Físicos";
+                frm.ShowDialog();
+            }
+        }
+
+        private void btnLibrosDigitales_Click(object sender, EventArgs e)
+        {
+            using (var frm = _serviceProvider.GetRequiredService<frmLibrosDigitales>())
+            {
+                frm.Text = "Lista de Libros Digitales";
+                frm.ShowDialog();
+            }
+        }
     }
 }

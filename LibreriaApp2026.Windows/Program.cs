@@ -1,5 +1,6 @@
 using LibreriaApp2026.Ioc;
 using Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
 
 namespace LibreriaApp2026.Windows
 {
@@ -11,6 +12,13 @@ namespace LibreriaApp2026.Windows
         [STAThread]
         static void Main()
         {
+            //cultura fija (pesos argentinos) para no depender de la configuración regional de Windows
+            var cultura = new CultureInfo("es-AR");
+            CultureInfo.DefaultThreadCurrentCulture = cultura;
+            CultureInfo.DefaultThreadCurrentUICulture = cultura;
+            Thread.CurrentThread.CurrentCulture = cultura;
+            Thread.CurrentThread.CurrentUICulture = cultura;
+
             var services = new ServiceCollection();
             services.AddApplicationServices();
 
