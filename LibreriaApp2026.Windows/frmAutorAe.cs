@@ -1,5 +1,6 @@
 using LibreriaApp2026.Servicios.DTOs.Autor;
 using LibreriaApp2026.Servicios.Interfaces;
+using LibreriaApp2026.Servicios.Validators;
 using LibreriaApp2026.Windows.Helpers;
 
 namespace LibreriaApp2026.Windows
@@ -18,12 +19,15 @@ namespace LibreriaApp2026.Windows
 
         public bool DataChanged { get; private set; }
 
+        private static DateTime FechaMaxima => DateTime.Today.AddYears(-AutorCreateDtoValidator.EdadMinima);
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            dtpFechaNacimiento.MaxDate = DateTime.Today;
+            dtpFechaNacimiento.MaxDate = FechaMaxima;
             if (_autorUpdateDto is null)
             {
+                dtpFechaNacimiento.Value = FechaMaxima;
                 chkActivo.Checked = true;
                 chkActivo.Enabled = false;
             }
@@ -31,7 +35,18 @@ namespace LibreriaApp2026.Windows
             {
                 txtNombre.Text = _autorUpdateDto.Nombre;
                 txtApellido.Text = _autorUpdateDto.Apellido;
-                dtpFechaNacimiento.Value = _autorUpdateDto.FechaNacimiento;
+                //si un autor cargado antes no cumple la edad mínima, se muestra la fecha máxima
+                //y se avisa, para no romper el DateTimePicker
+                if (_autorUpdateDto.FechaNacimiento > FechaMaxima)
+                {
+                    dtpFechaNacimiento.Value = FechaMaxima;
+                    errorProvider1.SetError(dtpFechaNacimiento,
+                        $"La fecha guardada ({_autorUpdateDto.FechaNacimiento:d}) no cumple la edad mínima de {AutorCreateDtoValidator.EdadMinima} años");
+                }
+                else
+                {
+                    dtpFechaNacimiento.Value = _autorUpdateDto.FechaNacimiento;
+                }
                 txtNacionalidad.Text = _autorUpdateDto.Nacionalidad;
                 chkActivo.Checked = _autorUpdateDto.Activo;
                 chkActivo.Enabled = true;
@@ -114,7 +129,7 @@ namespace LibreriaApp2026.Windows
         {
             txtNombre.Clear();
             txtApellido.Clear();
-            dtpFechaNacimiento.Value = DateTime.Today;
+            dtpFechaNacimiento.Value = FechaMaxima;
             txtNacionalidad.Clear();
             chkActivo.Checked = true;
             chkActivo.Enabled = false;
@@ -135,10 +150,10 @@ namespace LibreriaApp2026.Windows
                 valido = false;
                 errorProvider1.SetError(txtApellido, "El apellido es requerido");
             }
-            if (dtpFechaNacimiento.Value.Date > DateTime.Today)
+            if (dtpFechaNacimiento.Value.Date > FechaMaxima)
             {
                 valido = false;
-                errorProvider1.SetError(dtpFechaNacimiento, "La fecha de nacimiento no puede ser futura");
+                errorProvider1.SetError(dtpFechaNacimiento, $"El autor debe tener al menos {AutorCreateDtoValidator.EdadMinima} años");
             }
             if (string.IsNullOrWhiteSpace(txtNacionalidad.Text))
             {

@@ -19,7 +19,8 @@ namespace LibreriaApp2026.Servicios.Validators
                 .MaximumLength(50).WithMessage("El apellido no puede superar los 50 caracteres.");
 
             RuleFor(x => x.FechaNacimiento)
-                .LessThanOrEqualTo(_ => DateTime.Today).WithMessage("La fecha de nacimiento no puede ser futura.");
+                .LessThanOrEqualTo(_ => DateTime.Today.AddYears(-AutorCreateDtoValidator.EdadMinima))
+                .WithMessage($"El autor debe tener al menos {AutorCreateDtoValidator.EdadMinima} años.");
 
             RuleFor(x => x.Nacionalidad)
                 .NotEmpty().WithMessage("La nacionalidad es obligatoria.")

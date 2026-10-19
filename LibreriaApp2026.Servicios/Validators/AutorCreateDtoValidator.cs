@@ -5,6 +5,8 @@ namespace LibreriaApp2026.Servicios.Validators
 {
     public class AutorCreateDtoValidator : AbstractValidator<AutorCreateDto>
     {
+        public const int EdadMinima = 16;
+
         public AutorCreateDtoValidator()
         {
             RuleFor(x => x.Nombre)
@@ -16,7 +18,8 @@ namespace LibreriaApp2026.Servicios.Validators
                 .MaximumLength(50).WithMessage("El apellido no puede superar los 50 caracteres.");
 
             RuleFor(x => x.FechaNacimiento)
-                .LessThanOrEqualTo(_ => DateTime.Today).WithMessage("La fecha de nacimiento no puede ser futura.");
+                .LessThanOrEqualTo(_ => DateTime.Today.AddYears(-EdadMinima))
+                .WithMessage($"El autor debe tener al menos {EdadMinima} años.");
 
             RuleFor(x => x.Nacionalidad)
                 .NotEmpty().WithMessage("La nacionalidad es obligatoria.")
