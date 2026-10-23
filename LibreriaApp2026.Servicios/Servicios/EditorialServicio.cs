@@ -5,6 +5,7 @@ using LibreriaApp2026.Servicios.DTOs.Editorial;
 using LibreriaApp2026.Servicios.Interfaces;
 using LibreriaApp2026.Servicios.Mapeadores;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace LibreriaApp2026.Servicios.Servicios
@@ -87,9 +88,14 @@ namespace LibreriaApp2026.Servicios.Servicios
 
             try
             {
-                _unitOfWork.Editoriales.Editar(editorial, editorial.EditorialId);
+                _unitOfWork.Editoriales.Editar(editorial, editorial.EditorialId, editorialDto.RowVersion);
                 _unitOfWork.Save();
                 return Result.Success();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                _unitOfWork.RollBack();
+                return Result.ConcurrencyFailure("Otro usuario modificó el registro.\nLa grilla se recargará automáticamente");
             }
             catch (Exception ex)
             {
@@ -98,9 +104,9 @@ namespace LibreriaApp2026.Servicios.Servicios
             }
         }
 
-        public Result Borrar(int id)
+        public Result Borrar(EditorialDeleteDto editorialDto)
         {
-            var editorial = _unitOfWork.Editoriales.ObtenerPorId(id);
+            var editorial = _unitOfWork.Editoriales.ObtenerPorId(editorialDto.EditorialId);
             if (editorial == null)
             {
                 return Result.Failure("Editorial no encontrada.");
@@ -114,9 +120,14 @@ namespace LibreriaApp2026.Servicios.Servicios
 
             try
             {
-                _unitOfWork.Editoriales.Borrar(editorial.EditorialId);
+                _unitOfWork.Editoriales.Borrar(editorial.EditorialId, editorialDto.RowVersion);
                 _unitOfWork.Save();
                 return Result.Success();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                _unitOfWork.RollBack();
+                return Result.ConcurrencyFailure("Otro usuario modificó el registro.\nLa grilla se recargará automáticamente");
             }
             catch (Exception ex)
             {
@@ -174,6 +185,25 @@ namespace LibreriaApp2026.Servicios.Servicios
             catch (Exception ex)
             {
                 return Result<EditorialUpdateDto>.Failure(ex.Message);
+            }
+        }
+
+        public Result<EditorialDeleteDto> ObtenerParaBorrar(int id)
+        {
+            try
+            {
+                var editorial = _unitOfWork.Editoriales.ObtenerPorId(id);
+                if (editorial != null)
+                {
+                    var editorialDto = EditorialMapper.ToDeleteDto(editorial);
+                    return Result<EditorialDeleteDto>.Success(editorialDto);
+                }
+
+                return Result<EditorialDeleteDto>.Failure("Editorial no encontrada.");
+            }
+            catch (Exception ex)
+            {
+                return Result<EditorialDeleteDto>.Failure(ex.Message);
             }
         }
 

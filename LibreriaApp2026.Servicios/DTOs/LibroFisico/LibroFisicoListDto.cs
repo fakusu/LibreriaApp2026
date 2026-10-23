@@ -6,6 +6,8 @@ namespace LibreriaApp2026.Servicios.DTOs.LibroFisico
         public string Titulo { get; set; } = null!;
         public string ISBN { get; set; } = null!;
         public string Editorial { get; set; } = null!;
+        public string Autores { get; set; } = null!;
+        public string Temas { get; set; } = null!;
         public int AnioPublicacion { get; set; }
         public decimal Precio { get; set; }
         public int Stock { get; set; }

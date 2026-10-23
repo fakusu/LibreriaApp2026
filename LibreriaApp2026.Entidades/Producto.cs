@@ -1,6 +1,8 @@
+using LibreriaApp2026.Entidades.Interfaces;
+
 namespace LibreriaApp2026.Entidades
 {
-    public abstract class Producto
+    public abstract class Producto : IConcurrencyEntity
     {
         private string _nombre = null!;
         private string? _descripcion;
@@ -48,6 +50,8 @@ namespace LibreriaApp2026.Entidades
         }
 
         public bool Activo { get; set; } = true;
+
+        public byte[] RowVersion { get; set; } = null!;
 
         protected Producto() { }
 

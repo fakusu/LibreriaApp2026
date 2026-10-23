@@ -8,5 +8,6 @@ namespace LibreriaApp2026.Servicios.DTOs.Autor
         public DateTime FechaNacimiento { get; set; }
         public string Nacionalidad { get; set; } = null!;
         public bool Activo { get; set; }
+        public byte[] RowVersion { get; set; } = null!;
     }
 }

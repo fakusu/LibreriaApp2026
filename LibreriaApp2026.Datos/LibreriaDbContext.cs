@@ -12,6 +12,8 @@ namespace LibreriaApp2026.Datos
         public DbSet<Libro> Libros { get; set; }
         public DbSet<LibroFisico> LibrosFisicos { get; set; }
         public DbSet<LibroDigital> LibrosDigitales { get; set; }
+        public DbSet<LibroAutor> LibrosAutores { get; set; }
+        public DbSet<LibroTema> LibrosTemas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

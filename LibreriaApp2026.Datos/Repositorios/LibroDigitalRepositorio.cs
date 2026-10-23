@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LibreriaApp2026.Datos.Repositorios
 {
-    public class LibroDigitalRepositorio : RepositorioGenerico<LibroDigital>, ILibroDigitalRepositorio
+    public class LibroDigitalRepositorio : RepositorioConcurrente<LibroDigital>, ILibroDigitalRepositorio
     {
         public LibroDigitalRepositorio(LibreriaDbContext context) : base(context)
         {
@@ -24,10 +24,21 @@ namespace LibreriaApp2026.Datos.Repositorios
                 l.ProductoId != libroDigital.ProductoId);
         }
 
+        //con seguimiento de cambios, para poder editar los autores y temas del libro
+        public LibroDigital? ObtenerConAutoresYTemas(int id)
+        {
+            return _context.LibrosDigitales
+                .Include(l => l.LibrosAutores)
+                .Include(l => l.LibrosTemas)
+                .FirstOrDefault(l => l.ProductoId == id);
+        }
+
         public override List<LibroDigital> ObtenerTodos()
         {
             return _context.LibrosDigitales
                 .Include(l => l.Editorial)
+                .Include(l => l.LibrosAutores).ThenInclude(la => la.Autor)
+                .Include(l => l.LibrosTemas).ThenInclude(lt => lt.Tema)
                 .AsNoTracking()
                 .ToList();
         }

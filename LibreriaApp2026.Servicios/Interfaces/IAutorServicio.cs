@@ -8,9 +8,10 @@ namespace LibreriaApp2026.Servicios.Interfaces
         Result<List<AutorListDto>> ObtenerTodos();
         Result<AutorListDto> ObtenerPorId(int id);
         Result<AutorUpdateDto> ObtenerParaEditar(int id);
+        Result<AutorDeleteDto> ObtenerParaBorrar(int id);
         Result Agregar(AutorCreateDto autorDto);
         Result Editar(AutorUpdateDto autorDto);
-        Result Borrar(int id);
+        Result Borrar(AutorDeleteDto autorDto);
         Result<List<AutorListDto>> FiltrarPorActivo(bool activo);
         Result<ResultadoPaginacionDto<AutorListDto>> ObtenerPaginado(int paginaActual,
             int cantidadPorPagina, string campoOrdenar, bool esAscendente, bool? filtroActivo,

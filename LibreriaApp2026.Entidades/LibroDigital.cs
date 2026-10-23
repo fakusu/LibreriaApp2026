@@ -61,8 +61,9 @@ namespace LibreriaApp2026.Entidades
         public LibroDigital() { }
 
         public LibroDigital(string titulo, string? descripcion, string isbn, int anioPublicacion,
-            int stock, decimal precio, int editorialId, string formato, decimal tamanioMB, string urlDescarga)
-            : base(titulo, descripcion, isbn, anioPublicacion, stock, precio, editorialId)
+            decimal precio, int editorialId, IEnumerable<int> autoresIds, IEnumerable<int> temasIds,
+            string formato, decimal tamanioMB, string urlDescarga)
+            : base(titulo, descripcion, isbn, anioPublicacion, precio, editorialId, autoresIds, temasIds)
         {
             Formato = formato;
             TamanioMB = tamanioMB;

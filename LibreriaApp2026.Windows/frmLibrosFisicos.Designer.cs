@@ -48,6 +48,8 @@
             dgvDatos = new DataGridView();
             colId = new DataGridViewTextBoxColumn();
             colTitulo = new DataGridViewTextBoxColumn();
+            colAutores = new DataGridViewTextBoxColumn();
+            colTemas = new DataGridViewTextBoxColumn();
             colISBN = new DataGridViewTextBoxColumn();
             colEditorial = new DataGridViewTextBoxColumn();
             colAnio = new DataGridViewTextBoxColumn();
@@ -78,7 +80,7 @@
             toolStrip1.Items.AddRange(new ToolStripItem[] { tsbNuevo, tsbBorrar, tsbEditar, toolStripSeparator1, tsbFiltrar, toolStripLabel1, txtBuscar, tsbBuscar, tsbActualizar, toolStripSeparator2, tsbCerrar });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(1100, 75);
+            toolStrip1.Size = new Size(1282, 75);
             toolStrip1.TabIndex = 0;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -216,7 +218,7 @@
             splitContainer1.Panel2.Controls.Add(lblCantidad);
             splitContainer1.Panel2.Controls.Add(label2);
             splitContainer1.Panel2.Controls.Add(label1);
-            splitContainer1.Size = new Size(1100, 525);
+            splitContainer1.Size = new Size(1282, 525);
             splitContainer1.SplitterDistance = 443;
             splitContainer1.SplitterWidth = 5;
             splitContainer1.TabIndex = 1;
@@ -228,7 +230,7 @@
             dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
             dgvDatos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dgvDatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvDatos.Columns.AddRange(new DataGridViewColumn[] { colId, colTitulo, colISBN, colEditorial, colAnio, colPrecio, colStock, colPaginas, colPeso, colActivo });
+            dgvDatos.Columns.AddRange(new DataGridViewColumn[] { colId, colTitulo, colAutores, colTemas, colISBN, colEditorial, colAnio, colPrecio, colStock, colPaginas, colPeso, colActivo });
             dgvDatos.Dock = DockStyle.Fill;
             dgvDatos.Location = new Point(0, 0);
             dgvDatos.Margin = new Padding(3, 4, 3, 4);
@@ -238,7 +240,7 @@
             dgvDatos.RowHeadersVisible = false;
             dgvDatos.RowHeadersWidth = 51;
             dgvDatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvDatos.Size = new Size(1100, 443);
+            dgvDatos.Size = new Size(1282, 443);
             dgvDatos.TabIndex = 0;
             dgvDatos.ColumnHeaderMouseClick += dgvDatos_ColumnHeaderMouseClick;
             // 
@@ -260,6 +262,24 @@
             colTitulo.MinimumWidth = 6;
             colTitulo.Name = "colTitulo";
             colTitulo.ReadOnly = true;
+            // 
+            // colAutores
+            // 
+            colAutores.DataPropertyName = "Autores";
+            colAutores.HeaderText = "Autores";
+            colAutores.MinimumWidth = 6;
+            colAutores.Name = "colAutores";
+            colAutores.ReadOnly = true;
+            colAutores.Width = 200;
+            // 
+            // colTemas
+            // 
+            colTemas.DataPropertyName = "Temas";
+            colTemas.HeaderText = "Temas";
+            colTemas.MinimumWidth = 6;
+            colTemas.Name = "colTemas";
+            colTemas.ReadOnly = true;
+            colTemas.Width = 150;
             // 
             // colISBN
             // 
@@ -298,7 +318,7 @@
             colPrecio.MinimumWidth = 6;
             colPrecio.Name = "colPrecio";
             colPrecio.ReadOnly = true;
-            colPrecio.Width = 100;
+            colPrecio.Width = 125;
             // 
             // colStock
             // 
@@ -422,7 +442,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1100, 600);
+            ClientSize = new Size(1282, 600);
             Controls.Add(splitContainer1);
             Controls.Add(toolStrip1);
             Margin = new Padding(3, 4, 3, 4);
@@ -462,6 +482,8 @@
         private DataGridView dgvDatos;
         private DataGridViewTextBoxColumn colId;
         private DataGridViewTextBoxColumn colTitulo;
+        private DataGridViewTextBoxColumn colAutores;
+        private DataGridViewTextBoxColumn colTemas;
         private DataGridViewTextBoxColumn colISBN;
         private DataGridViewTextBoxColumn colEditorial;
         private DataGridViewTextBoxColumn colAnio;

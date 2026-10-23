@@ -26,14 +26,17 @@ namespace LibreriaApp2026.Servicios.Validators
                 .InclusiveBetween(Libro.AnioMinimo, DateTime.Today.Year)
                 .WithMessage($"El año de publicación debe estar entre {Libro.AnioMinimo} y {DateTime.Today.Year}.");
 
-            RuleFor(x => x.Stock)
-                .GreaterThanOrEqualTo(0).WithMessage("El stock no puede ser negativo.");
-
             RuleFor(x => x.Precio)
                 .GreaterThanOrEqualTo(0).WithMessage("El precio no puede ser negativo.");
 
             RuleFor(x => x.EditorialId)
                 .GreaterThan(0).WithMessage("Debe seleccionar una editorial.");
+
+            RuleFor(x => x.AutoresIds)
+                .NotEmpty().WithMessage("Debe seleccionar al menos un autor.");
+
+            RuleFor(x => x.TemasIds)
+                .NotEmpty().WithMessage("Debe seleccionar al menos un tema.");
 
             RuleFor(x => x.Formato)
                 .NotEmpty().WithMessage("El formato es obligatorio.")
@@ -45,6 +48,9 @@ namespace LibreriaApp2026.Servicios.Validators
             RuleFor(x => x.UrlDescarga)
                 .NotEmpty().WithMessage("La URL de descarga es obligatoria.")
                 .MaximumLength(300).WithMessage("La URL de descarga no puede superar los 300 caracteres.");
+
+            RuleFor(x => x.RowVersion)
+                .NotNull().WithMessage("El campo de concurrencia es obligatorio.");
         }
     }
 }

@@ -66,8 +66,8 @@ namespace LibreriaApp2026.Servicios.Servicios
                 return Result.Failure(result.Errors.Select(e => e.ErrorMessage).ToList());
             }
 
-            // 2. Obtener entidad existente
-            var libro = _unitOfWork.LibrosDigitales.ObtenerPorId(libroDto.ProductoId);
+            // 2. Obtener entidad existente (con sus autores y temas)
+            var libro = _unitOfWork.LibrosDigitales.ObtenerConAutoresYTemas(libroDto.ProductoId);
             if (libro == null)
             {
                 return Result.Failure("Libro no encontrado.");
@@ -78,9 +78,10 @@ namespace LibreriaApp2026.Servicios.Servicios
             libro.Descripcion = libroDto.Descripcion;
             libro.ISBN = libroDto.ISBN;
             libro.AnioPublicacion = libroDto.AnioPublicacion;
-            libro.Stock = libroDto.Stock;
             libro.Precio = libroDto.Precio;
             libro.EditorialId = libroDto.EditorialId;
+            libro.AsignarAutores(libroDto.AutoresIds);
+            libro.AsignarTemas(libroDto.TemasIds);
             libro.Formato = libroDto.Formato;
             libro.TamanioMB = libroDto.TamanioMB;
             libro.UrlDescarga = libroDto.UrlDescarga;
@@ -96,9 +97,14 @@ namespace LibreriaApp2026.Servicios.Servicios
 
             try
             {
-                _unitOfWork.LibrosDigitales.Editar(libro, libro.ProductoId);
+                _unitOfWork.LibrosDigitales.Editar(libro, libro.ProductoId, libroDto.RowVersion);
                 _unitOfWork.Save();
                 return Result.Success();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                _unitOfWork.RollBack();
+                return Result.ConcurrencyFailure("Otro usuario modificó el registro.\nLa grilla se recargará automáticamente");
             }
             catch (Exception ex)
             {
@@ -107,9 +113,9 @@ namespace LibreriaApp2026.Servicios.Servicios
             }
         }
 
-        public Result Borrar(int id)
+        public Result Borrar(LibroDigitalDeleteDto libroDto)
         {
-            var libro = _unitOfWork.LibrosDigitales.ObtenerPorId(id);
+            var libro = _unitOfWork.LibrosDigitales.ObtenerPorId(libroDto.ProductoId);
             if (libro == null)
             {
                 return Result.Failure("Libro no encontrado.");
@@ -123,9 +129,14 @@ namespace LibreriaApp2026.Servicios.Servicios
 
             try
             {
-                _unitOfWork.LibrosDigitales.Borrar(libro.ProductoId);
+                _unitOfWork.LibrosDigitales.Borrar(libro.ProductoId, libroDto.RowVersion);
                 _unitOfWork.Save();
                 return Result.Success();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                _unitOfWork.RollBack();
+                return Result.ConcurrencyFailure("Otro usuario modificó el registro.\nLa grilla se recargará automáticamente");
             }
             catch (Exception ex)
             {
@@ -154,6 +165,8 @@ namespace LibreriaApp2026.Servicios.Servicios
             {
                 var libro = _unitOfWork.LibrosDigitales.Query()
                     .Include(l => l.Editorial)
+                    .Include(l => l.LibrosAutores).ThenInclude(la => la.Autor)
+                    .Include(l => l.LibrosTemas).ThenInclude(lt => lt.Tema)
                     .FirstOrDefault(l => l.ProductoId == id);
                 if (libro == null)
                 {
@@ -173,7 +186,7 @@ namespace LibreriaApp2026.Servicios.Servicios
         {
             try
             {
-                var libro = _unitOfWork.LibrosDigitales.ObtenerPorId(id);
+                var libro = _unitOfWork.LibrosDigitales.ObtenerConAutoresYTemas(id);
                 if (libro != null)
                 {
                     var libroDto = LibroDigitalMapper.ToUpdateDto(libro);
@@ -188,11 +201,33 @@ namespace LibreriaApp2026.Servicios.Servicios
             }
         }
 
+        public Result<LibroDigitalDeleteDto> ObtenerParaBorrar(int id)
+        {
+            try
+            {
+                var libro = _unitOfWork.LibrosDigitales.ObtenerPorId(id);
+                if (libro != null)
+                {
+                    var libroDto = LibroDigitalMapper.ToDeleteDto(libro);
+                    return Result<LibroDigitalDeleteDto>.Success(libroDto);
+                }
+
+                return Result<LibroDigitalDeleteDto>.Failure("Libro no encontrado.");
+            }
+            catch (Exception ex)
+            {
+                return Result<LibroDigitalDeleteDto>.Failure(ex.Message);
+            }
+        }
+
         public Result<List<LibroDigitalListDto>> FiltrarPorActivo(bool activo)
         {
             try
             {
-                var query = _unitOfWork.LibrosDigitales.Query().Include(l => l.Editorial);
+                var query = _unitOfWork.LibrosDigitales.Query()
+                    .Include(l => l.Editorial)
+                    .Include(l => l.LibrosAutores).ThenInclude(la => la.Autor)
+                    .Include(l => l.LibrosTemas).ThenInclude(lt => lt.Tema);
                 var lista = query.Where(l => l.Activo == activo);
                 var listaDto = lista.Select(LibroDigitalMapper.ToListDto).ToList();
                 return Result<List<LibroDigitalListDto>>.Success(listaDto);
@@ -217,6 +252,8 @@ namespace LibreriaApp2026.Servicios.Servicios
                         (!filtroActivo.HasValue || l.Activo == filtroActivo.Value) &&
                         (string.IsNullOrWhiteSpace(textoBuscar) || l.Nombre.Contains(textoBuscar) ||
                             l.ISBN.Contains(textoBuscar) || l.Editorial.Nombre.Contains(textoBuscar) ||
+                            l.LibrosAutores.Any(la => la.Autor.Apellido.Contains(textoBuscar) || la.Autor.Nombre.Contains(textoBuscar)) ||
+                            l.LibrosTemas.Any(lt => lt.Tema.Nombre.Contains(textoBuscar)) ||
                             l.Formato.Contains(textoBuscar));
 
                 Func<IQueryable<LibroDigital>, IOrderedQueryable<LibroDigital>>? ordenarPor = campoOrden switch
@@ -224,15 +261,19 @@ namespace LibreriaApp2026.Servicios.Servicios
                     "ProductoId" => q => esAscendente ? q.OrderBy(l => l.ProductoId) : q.OrderByDescending(l => l.ProductoId),
                     "ISBN" => q => esAscendente ? q.OrderBy(l => l.ISBN) : q.OrderByDescending(l => l.ISBN),
                     "Editorial" => q => esAscendente ? q.OrderBy(l => l.Editorial.Nombre).ThenBy(l => l.Nombre) : q.OrderByDescending(l => l.Editorial.Nombre).ThenBy(l => l.Nombre),
+                    //se ordena por el primer autor / tema (alfabéticamente) de cada libro
+                    "Autores" => q => esAscendente ? q.OrderBy(l => l.LibrosAutores.Select(la => la.Autor.Apellido + ", " + la.Autor.Nombre).OrderBy(n => n).FirstOrDefault()).ThenBy(l => l.Nombre) : q.OrderByDescending(l => l.LibrosAutores.Select(la => la.Autor.Apellido + ", " + la.Autor.Nombre).OrderBy(n => n).FirstOrDefault()).ThenBy(l => l.Nombre),
+                    "Temas" => q => esAscendente ? q.OrderBy(l => l.LibrosTemas.Select(lt => lt.Tema.Nombre).OrderBy(n => n).FirstOrDefault()).ThenBy(l => l.Nombre) : q.OrderByDescending(l => l.LibrosTemas.Select(lt => lt.Tema.Nombre).OrderBy(n => n).FirstOrDefault()).ThenBy(l => l.Nombre),
                     "AnioPublicacion" => q => esAscendente ? q.OrderBy(l => l.AnioPublicacion).ThenBy(l => l.Nombre) : q.OrderByDescending(l => l.AnioPublicacion).ThenBy(l => l.Nombre),
                     "Precio" => q => esAscendente ? q.OrderBy(l => l.Precio) : q.OrderByDescending(l => l.Precio),
-                    "Stock" => q => esAscendente ? q.OrderBy(l => l.Stock) : q.OrderByDescending(l => l.Stock),
                     "Formato" => q => esAscendente ? q.OrderBy(l => l.Formato).ThenBy(l => l.Nombre) : q.OrderByDescending(l => l.Formato).ThenBy(l => l.Nombre),
                     "TamanioMB" => q => esAscendente ? q.OrderBy(l => l.TamanioMB) : q.OrderByDescending(l => l.TamanioMB),
                     _ => q => esAscendente ? q.OrderBy(l => l.Nombre) : q.OrderByDescending(l => l.Nombre)
                 };
 
-                Func<IQueryable<LibroDigital>, IQueryable<LibroDigital>>? incluir = q => q.Include(l => l.Editorial);
+                Func<IQueryable<LibroDigital>, IQueryable<LibroDigital>>? incluir = q => q.Include(l => l.Editorial)
+                    .Include(l => l.LibrosAutores).ThenInclude(la => la.Autor)
+                    .Include(l => l.LibrosTemas).ThenInclude(lt => lt.Tema);
 
                 var resultado = _unitOfWork.LibrosDigitales.ObtenerPagina(pagina, registros, ordenarPor, filtro, incluir);
                 var listaDto = resultado.lista.Select(LibroDigitalMapper.ToListDto).ToList();

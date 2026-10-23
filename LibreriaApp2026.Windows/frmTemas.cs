@@ -82,7 +82,7 @@ namespace LibreriaApp2026.Windows
                         frm.Text = "Editar Tema";
                         frm.SetTema(temaEditDto);
                         frm.ShowDialog();
-                        if (frm.DataChanged)//si cambiaron los datos se recarga la grilla
+                        if (frm.DataChanged || frm.ConcurrencyConflict)//si cambiaron los datos (o hubo conflicto) se recarga la grilla
                         {
                             RecargarGrilla();
                         }
@@ -105,18 +105,34 @@ namespace LibreriaApp2026.Windows
                 return;
             }
             var temaListDto = (TemaListDto)_bindingSource.Current;
-            var dr = MessageBox.Show($"¿Desea borrar el tema {temaListDto.Nombre}?",
-                "Confirmar Borrado", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2);
-            if (dr == DialogResult.No) return;
             using (var scope = _serviceProvider.CreateScope())
             {
                 var temaServicio = scope.ServiceProvider
                         .GetRequiredService<ITemaServicio>();
                 try
                 {
+                    //se lee el RowVersion antes de confirmar, para detectar si otro usuario lo cambia mientras tanto
+                    var resultadoConsulta = temaServicio
+                        .ObtenerParaBorrar(temaListDto.TemaId);
+                    if (resultadoConsulta.IsFailure)
+                    {
+                        ErrorHelper.MostrarErrores(resultadoConsulta.Errors);
+                        return;
+                    }
+                    var deleteDto = resultadoConsulta.Value!;
+                    var dr = MessageBox.Show($"¿Desea borrar el tema {temaListDto.Nombre}?",
+                        "Confirmar Borrado", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                        MessageBoxDefaultButton.Button2);
+                    if (dr == DialogResult.No) return;
+
                     var resultadoEliminacion = temaServicio
-                        .Borrar(temaListDto.TemaId);
+                        .Borrar(deleteDto);
+                    if (resultadoEliminacion.IsConcurrencyConflict)
+                    {
+                        ErrorHelper.MostrarErrores(resultadoEliminacion.Errors);
+                        RecargarGrilla();
+                        return;
+                    }
                     if (resultadoEliminacion.IsFailure)
                     {
                         ErrorHelper.MostrarErrores(resultadoEliminacion.Errors);

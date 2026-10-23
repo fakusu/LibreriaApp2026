@@ -25,6 +25,9 @@ namespace LibreriaApp2026.Servicios.Validators
             RuleFor(x => x.Nacionalidad)
                 .NotEmpty().WithMessage("La nacionalidad es obligatoria.")
                 .MaximumLength(50).WithMessage("La nacionalidad no puede superar los 50 caracteres.");
+
+            RuleFor(x => x.RowVersion)
+                .NotNull().WithMessage("El campo de concurrencia es obligatorio.");
         }
     }
 }

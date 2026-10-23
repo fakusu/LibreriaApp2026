@@ -32,6 +32,12 @@ namespace LibreriaApp2026.Servicios.Validators
             RuleFor(x => x.EditorialId)
                 .GreaterThan(0).WithMessage("Debe seleccionar una editorial.");
 
+            RuleFor(x => x.AutoresIds)
+                .NotEmpty().WithMessage("Debe seleccionar al menos un autor.");
+
+            RuleFor(x => x.TemasIds)
+                .NotEmpty().WithMessage("Debe seleccionar al menos un tema.");
+
             RuleFor(x => x.PesoEnGramos)
                 .GreaterThan(0).WithMessage("El peso debe ser mayor a cero.");
 

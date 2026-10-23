@@ -17,6 +17,9 @@ namespace LibreriaApp2026.Servicios.Validators
             //La descripción no es obligatoria
             RuleFor(x => x.Descripcion)
                 .MaximumLength(200).WithMessage("La descripción no puede superar los 200 caracteres.");
+
+            RuleFor(x => x.RowVersion)
+                .NotNull().WithMessage("El campo de concurrencia es obligatorio.");
         }
     }
 }

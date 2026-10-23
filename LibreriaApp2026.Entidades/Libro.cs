@@ -6,7 +6,6 @@ namespace LibreriaApp2026.Entidades
 
         private string _isbn = null!;
         private int _anioPublicacion;
-        private int _stock;
         private decimal _precio;
         private int _editorialId;
 
@@ -43,20 +42,6 @@ namespace LibreriaApp2026.Entidades
             }
         }
 
-        public int Stock
-        {
-            get => _stock;
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value), "El stock no puede ser negativo.");
-                }
-
-                _stock = value;
-            }
-        }
-
         public decimal Precio
         {
             get => _precio;
@@ -85,25 +70,70 @@ namespace LibreriaApp2026.Entidades
             }
         }
 
-        // Propiedad de navegación
+        // Propiedades de navegación
         public Editorial Editorial { get; set; } = null!;
+        public ICollection<LibroAutor> LibrosAutores { get; set; } = new List<LibroAutor>();
+        public ICollection<LibroTema> LibrosTemas { get; set; } = new List<LibroTema>();
 
         protected Libro() { }
 
         protected Libro(string titulo, string? descripcion, string isbn, int anioPublicacion,
-            int stock, decimal precio, int editorialId) : base(titulo, descripcion)
+            decimal precio, int editorialId, IEnumerable<int> autoresIds, IEnumerable<int> temasIds)
+            : base(titulo, descripcion)
         {
             ISBN = isbn;
             AnioPublicacion = anioPublicacion;
-            Stock = stock;
             Precio = precio;
             EditorialId = editorialId;
+            AsignarAutores(autoresIds);
+            AsignarTemas(temasIds);
+        }
+
+        // Deja en la tabla intermedia exactamente los autores indicados:
+        // quita los que ya no están y agrega los nuevos (los que siguen no se tocan)
+        public void AsignarAutores(IEnumerable<int> autoresIds)
+        {
+            var ids = autoresIds.Distinct().ToList();
+            if (ids.Count == 0)
+            {
+                throw new ArgumentException("El libro debe tener al menos un autor.", nameof(autoresIds));
+            }
+
+            foreach (var libroAutor in LibrosAutores.Where(la => !ids.Contains(la.AutorId)).ToList())
+            {
+                LibrosAutores.Remove(libroAutor);
+            }
+
+            foreach (var autorId in ids.Where(id => !LibrosAutores.Any(la => la.AutorId == id)).ToList())
+            {
+                LibrosAutores.Add(new LibroAutor { AutorId = autorId });
+            }
+        }
+
+        // Igual que AsignarAutores, para los temas
+        public void AsignarTemas(IEnumerable<int> temasIds)
+        {
+            var ids = temasIds.Distinct().ToList();
+            if (ids.Count == 0)
+            {
+                throw new ArgumentException("El libro debe tener al menos un tema.", nameof(temasIds));
+            }
+
+            foreach (var libroTema in LibrosTemas.Where(lt => !ids.Contains(lt.TemaId)).ToList())
+            {
+                LibrosTemas.Remove(libroTema);
+            }
+
+            foreach (var temaId in ids.Where(id => !LibrosTemas.Any(lt => lt.TemaId == id)).ToList())
+            {
+                LibrosTemas.Add(new LibroTema { TemaId = temaId });
+            }
         }
 
         // Datos comunes a todos los libros; las clases hijas los completan con base.MostrarDatos()
         public override string MostrarDatos()
         {
-            return $"{Nombre} (ISBN {ISBN}) - Año: {AnioPublicacion} - Precio: {Precio:C2} - Stock: {Stock}";
+            return $"{Nombre} (ISBN {ISBN}) - Año: {AnioPublicacion} - Precio: {Precio:C2}";
         }
     }
 }

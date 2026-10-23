@@ -5,6 +5,7 @@ using LibreriaApp2026.Servicios.DTOs.Tema;
 using LibreriaApp2026.Servicios.Interfaces;
 using LibreriaApp2026.Servicios.Mapeadores;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace LibreriaApp2026.Servicios.Servicios
@@ -87,9 +88,14 @@ namespace LibreriaApp2026.Servicios.Servicios
 
             try
             {
-                _unitOfWork.Temas.Editar(tema, tema.TemaId);
+                _unitOfWork.Temas.Editar(tema, tema.TemaId, temaDto.RowVersion);
                 _unitOfWork.Save();
                 return Result.Success();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                _unitOfWork.RollBack();
+                return Result.ConcurrencyFailure("Otro usuario modificó el registro.\nLa grilla se recargará automáticamente");
             }
             catch (Exception ex)
             {
@@ -98,9 +104,9 @@ namespace LibreriaApp2026.Servicios.Servicios
             }
         }
 
-        public Result Borrar(int id)
+        public Result Borrar(TemaDeleteDto temaDto)
         {
-            var tema = _unitOfWork.Temas.ObtenerPorId(id);
+            var tema = _unitOfWork.Temas.ObtenerPorId(temaDto.TemaId);
             if (tema == null)
             {
                 return Result.Failure("Tema no encontrado.");
@@ -114,9 +120,14 @@ namespace LibreriaApp2026.Servicios.Servicios
 
             try
             {
-                _unitOfWork.Temas.Borrar(tema.TemaId);
+                _unitOfWork.Temas.Borrar(tema.TemaId, temaDto.RowVersion);
                 _unitOfWork.Save();
                 return Result.Success();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                _unitOfWork.RollBack();
+                return Result.ConcurrencyFailure("Otro usuario modificó el registro.\nLa grilla se recargará automáticamente");
             }
             catch (Exception ex)
             {
@@ -174,6 +185,25 @@ namespace LibreriaApp2026.Servicios.Servicios
             catch (Exception ex)
             {
                 return Result<TemaUpdateDto>.Failure(ex.Message);
+            }
+        }
+
+        public Result<TemaDeleteDto> ObtenerParaBorrar(int id)
+        {
+            try
+            {
+                var tema = _unitOfWork.Temas.ObtenerPorId(id);
+                if (tema != null)
+                {
+                    var temaDto = TemaMapper.ToDeleteDto(tema);
+                    return Result<TemaDeleteDto>.Success(temaDto);
+                }
+
+                return Result<TemaDeleteDto>.Failure("Tema no encontrado.");
+            }
+            catch (Exception ex)
+            {
+                return Result<TemaDeleteDto>.Failure(ex.Message);
             }
         }
 

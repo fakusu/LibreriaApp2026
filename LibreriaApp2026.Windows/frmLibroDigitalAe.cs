@@ -11,16 +11,26 @@ namespace LibreriaApp2026.Windows
         private LibroDigitalUpdateDto? _libroUpdateDto;
         private readonly ILibroDigitalServicio _libroServicio;
         private readonly IEditorialServicio _editorialServicio;
+        private readonly IAutorServicio _autorServicio;
+        private readonly ITemaServicio _temaServicio;
         private bool _esEdicion = false;
+        private readonly SeleccionMultiple _selectorAutores;
+        private readonly SeleccionMultiple _selectorTemas;
 
-        public frmLibroDigitalAe(ILibroDigitalServicio libroServicio, IEditorialServicio editorialServicio)
+        public frmLibroDigitalAe(ILibroDigitalServicio libroServicio, IEditorialServicio editorialServicio,
+            IAutorServicio autorServicio, ITemaServicio temaServicio)
         {
             InitializeComponent();
+            _selectorAutores = new SeleccionMultiple(txtBuscarAutores, clbAutores, chkSoloAutores, lblCantidadAutores);
+            _selectorTemas = new SeleccionMultiple(txtBuscarTemas, clbTemas, chkSoloTemas, lblCantidadTemas);
             _libroServicio = libroServicio;
             _editorialServicio = editorialServicio;
+            _autorServicio = autorServicio;
+            _temaServicio = temaServicio;
         }
 
         public bool DataChanged { get; private set; }
+        public bool ConcurrencyConflict { get; private set; }//para avisar al listado que hubo conflicto de concurrencia
 
         protected override void OnLoad(EventArgs e)
         {
@@ -28,6 +38,8 @@ namespace LibreriaApp2026.Windows
             nudAnio.Minimum = Libro.AnioMinimo;
             nudAnio.Maximum = DateTime.Today.Year;
             CargarComboEditoriales();
+            CargarListaAutores();
+            CargarListaTemas();
             if (_libroUpdateDto is null)
             {
                 nudAnio.Value = DateTime.Today.Year;
@@ -42,7 +54,6 @@ namespace LibreriaApp2026.Windows
                 cboEditorial.SelectedValue = _libroUpdateDto.EditorialId;
                 nudAnio.Value = _libroUpdateDto.AnioPublicacion;
                 nudPrecio.Value = _libroUpdateDto.Precio;
-                nudStock.Value = _libroUpdateDto.Stock;
                 cboFormato.Text = _libroUpdateDto.Formato;
                 nudTamanio.Value = _libroUpdateDto.TamanioMB;
                 txtUrlDescarga.Text = _libroUpdateDto.UrlDescarga;
@@ -77,6 +88,66 @@ namespace LibreriaApp2026.Windows
             cboEditorial.SelectedIndex = 0;
         }
 
+        private void CargarListaAutores()
+        {
+            var resultadoConsulta = _autorServicio.FiltrarPorActivo(true);
+            if (resultadoConsulta.IsFailure)
+            {
+                ErrorHelper.MostrarErrores(resultadoConsulta.Errors);
+                return;
+            }
+            var lista = resultadoConsulta.Value!.OrderBy(a => a.NombreCompleto).ToList();
+            //si el libro que se edita tiene autores que ya no están activos, se agregan igual para no perderlos
+            if (_libroUpdateDto is not null)
+            {
+                foreach (var autorId in _libroUpdateDto.AutoresIds.Where(id => !lista.Any(a => a.AutorId == id)).ToList())
+                {
+                    var resultadoAutor = _autorServicio.ObtenerPorId(autorId);
+                    if (resultadoAutor.IsSuccess)
+                    {
+                        lista.Add(resultadoAutor.Value!);
+                    }
+                }
+            }
+            _selectorAutores.Cargar(lista.Select(a => new ItemSeleccion(a.AutorId, a.NombreCompleto)),
+                _libroUpdateDto?.AutoresIds ?? []);
+        }
+
+        private void CargarListaTemas()
+        {
+            var resultadoConsulta = _temaServicio.FiltrarPorActivo(true);
+            if (resultadoConsulta.IsFailure)
+            {
+                ErrorHelper.MostrarErrores(resultadoConsulta.Errors);
+                return;
+            }
+            var lista = resultadoConsulta.Value!.OrderBy(t => t.Nombre).ToList();
+            //si el libro que se edita tiene temas que ya no están activos, se agregan igual para no perderlos
+            if (_libroUpdateDto is not null)
+            {
+                foreach (var temaId in _libroUpdateDto.TemasIds.Where(id => !lista.Any(t => t.TemaId == id)).ToList())
+                {
+                    var resultadoTema = _temaServicio.ObtenerPorId(temaId);
+                    if (resultadoTema.IsSuccess)
+                    {
+                        lista.Add(resultadoTema.Value!);
+                    }
+                }
+            }
+            _selectorTemas.Cargar(lista.Select(t => new ItemSeleccion(t.TemaId, t.Nombre)),
+                _libroUpdateDto?.TemasIds ?? []);
+        }
+
+        private List<int> ObtenerAutoresSeleccionados()
+        {
+            return _selectorAutores.ObtenerSeleccionados();
+        }
+
+        private List<int> ObtenerTemasSeleccionados()
+        {
+            return _selectorTemas.ObtenerSeleccionados();
+        }
+
         public void SetLibro(LibroDigitalUpdateDto? libroEditDto)
         {
             _libroUpdateDto = libroEditDto;
@@ -101,9 +172,10 @@ namespace LibreriaApp2026.Windows
                             Descripcion = txtDescripcion.Text,
                             ISBN = txtISBN.Text,
                             EditorialId = (int)cboEditorial.SelectedValue!,
+                            AutoresIds = ObtenerAutoresSeleccionados(),
+                            TemasIds = ObtenerTemasSeleccionados(),
                             AnioPublicacion = (int)nudAnio.Value,
                             Precio = nudPrecio.Value,
-                            Stock = (int)nudStock.Value,
                             Formato = cboFormato.Text,
                             TamanioMB = nudTamanio.Value,
                             UrlDescarga = txtUrlDescarga.Text,
@@ -131,15 +203,24 @@ namespace LibreriaApp2026.Windows
                         _libroUpdateDto.Descripcion = txtDescripcion.Text;
                         _libroUpdateDto.ISBN = txtISBN.Text;
                         _libroUpdateDto.EditorialId = (int)cboEditorial.SelectedValue!;
+                        _libroUpdateDto.AutoresIds = ObtenerAutoresSeleccionados();
+                        _libroUpdateDto.TemasIds = ObtenerTemasSeleccionados();
                         _libroUpdateDto.AnioPublicacion = (int)nudAnio.Value;
                         _libroUpdateDto.Precio = nudPrecio.Value;
-                        _libroUpdateDto.Stock = (int)nudStock.Value;
                         _libroUpdateDto.Formato = cboFormato.Text;
                         _libroUpdateDto.TamanioMB = nudTamanio.Value;
                         _libroUpdateDto.UrlDescarga = txtUrlDescarga.Text;
                         _libroUpdateDto.Activo = chkActivo.Checked;
 
                         var resultadoEditar = _libroServicio.Editar(_libroUpdateDto);
+                        if (resultadoEditar.IsConcurrencyConflict)
+                        {
+                            ErrorHelper.MostrarErrores(resultadoEditar.Errors);
+                            ConcurrencyConflict = true;
+                            DialogResult = DialogResult.Cancel;
+                            Close();
+                            return;
+                        }
                         if (resultadoEditar.IsFailure)
                         {
                             ErrorHelper.MostrarErrores(resultadoEditar.Errors);
@@ -166,9 +247,10 @@ namespace LibreriaApp2026.Windows
             txtDescripcion.Clear();
             txtISBN.Clear();
             cboEditorial.SelectedIndex = 0;
+            _selectorAutores.Limpiar();
+            _selectorTemas.Limpiar();
             nudAnio.Value = DateTime.Today.Year;
             nudPrecio.Value = 0;
-            nudStock.Value = 0;
             cboFormato.SelectedIndex = -1;
             cboFormato.Text = string.Empty;
             nudTamanio.Value = 0;
@@ -196,6 +278,16 @@ namespace LibreriaApp2026.Windows
             {
                 valido = false;
                 errorProvider1.SetError(cboEditorial, "Debe seleccionar una editorial");
+            }
+            if (_selectorAutores.CantidadSeleccionados == 0)
+            {
+                valido = false;
+                errorProvider1.SetError(clbAutores, "Debe seleccionar al menos un autor");
+            }
+            if (_selectorTemas.CantidadSeleccionados == 0)
+            {
+                valido = false;
+                errorProvider1.SetError(clbTemas, "Debe seleccionar al menos un tema");
             }
             if (string.IsNullOrWhiteSpace(cboFormato.Text))
             {

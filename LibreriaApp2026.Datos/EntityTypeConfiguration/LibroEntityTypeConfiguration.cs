@@ -11,7 +11,6 @@ namespace LibreriaApp2026.Datos.EntityTypeConfiguration
             builder.ToTable("Libros");
             builder.Property(l => l.ISBN).IsRequired().HasMaxLength(13);
             builder.Property(l => l.AnioPublicacion).IsRequired();
-            builder.Property(l => l.Stock).IsRequired();
             builder.Property(l => l.Precio).IsRequired().HasColumnType("decimal(18,2)");
             builder.Property(l => l.EditorialId).IsRequired();
             builder.HasIndex(l => l.ISBN, "IX_Libros_ISBN").IsUnique();

@@ -82,7 +82,7 @@ namespace LibreriaApp2026.Windows
                         frm.Text = "Editar Autor";
                         frm.SetAutor(autorEditDto);
                         frm.ShowDialog();
-                        if (frm.DataChanged)//si cambiaron los datos se recarga la grilla
+                        if (frm.DataChanged || frm.ConcurrencyConflict)//si cambiaron los datos (o hubo conflicto) se recarga la grilla
                         {
                             RecargarGrilla();
                         }
@@ -105,18 +105,34 @@ namespace LibreriaApp2026.Windows
                 return;
             }
             var autorListDto = (AutorListDto)_bindingSource.Current;
-            var dr = MessageBox.Show($"¿Desea borrar el autor {autorListDto.NombreCompleto}?",
-                "Confirmar Borrado", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2);
-            if (dr == DialogResult.No) return;
             using (var scope = _serviceProvider.CreateScope())
             {
                 var autorServicio = scope.ServiceProvider
                         .GetRequiredService<IAutorServicio>();
                 try
                 {
+                    //se lee el RowVersion antes de confirmar, para detectar si otro usuario lo cambia mientras tanto
+                    var resultadoConsulta = autorServicio
+                        .ObtenerParaBorrar(autorListDto.AutorId);
+                    if (resultadoConsulta.IsFailure)
+                    {
+                        ErrorHelper.MostrarErrores(resultadoConsulta.Errors);
+                        return;
+                    }
+                    var deleteDto = resultadoConsulta.Value!;
+                    var dr = MessageBox.Show($"¿Desea borrar el autor {autorListDto.NombreCompleto}?",
+                        "Confirmar Borrado", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                        MessageBoxDefaultButton.Button2);
+                    if (dr == DialogResult.No) return;
+
                     var resultadoEliminacion = autorServicio
-                        .Borrar(autorListDto.AutorId);
+                        .Borrar(deleteDto);
+                    if (resultadoEliminacion.IsConcurrencyConflict)
+                    {
+                        ErrorHelper.MostrarErrores(resultadoEliminacion.Errors);
+                        RecargarGrilla();
+                        return;
+                    }
                     if (resultadoEliminacion.IsFailure)
                     {
                         ErrorHelper.MostrarErrores(resultadoEliminacion.Errors);

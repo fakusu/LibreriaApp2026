@@ -1,6 +1,8 @@
+using LibreriaApp2026.Entidades.Interfaces;
+
 namespace LibreriaApp2026.Entidades
 {
-    public class Editorial
+    public class Editorial : IConcurrencyEntity
     {
         private string _nombre = null!;
         private string _paisOrigen = null!;
@@ -46,5 +48,7 @@ namespace LibreriaApp2026.Entidades
         }
 
         public bool Activo { get; set; } = true;
+
+        public byte[] RowVersion { get; set; } = null!;
     }
 }

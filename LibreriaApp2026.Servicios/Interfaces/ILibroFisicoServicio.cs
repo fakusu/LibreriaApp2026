@@ -8,9 +8,10 @@ namespace LibreriaApp2026.Servicios.Interfaces
         Result<List<LibroFisicoListDto>> ObtenerTodos();
         Result<LibroFisicoListDto> ObtenerPorId(int id);
         Result<LibroFisicoUpdateDto> ObtenerParaEditar(int id);
+        Result<LibroFisicoDeleteDto> ObtenerParaBorrar(int id);
         Result Agregar(LibroFisicoCreateDto libroDto);
         Result Editar(LibroFisicoUpdateDto libroDto);
-        Result Borrar(int id);
+        Result Borrar(LibroFisicoDeleteDto libroDto);
         Result<List<LibroFisicoListDto>> FiltrarPorActivo(bool activo);
         Result<ResultadoPaginacionDto<LibroFisicoListDto>> ObtenerPaginado(int paginaActual,
             int cantidadPorPagina, string campoOrdenar, bool esAscendente, bool? filtroActivo,

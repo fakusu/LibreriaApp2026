@@ -3,7 +3,7 @@ using LibreriaApp2026.Entidades;
 
 namespace LibreriaApp2026.Datos.Repositorios
 {
-    public class AutorRepositorio : RepositorioGenerico<Autor>, IAutorRepositorio
+    public class AutorRepositorio : RepositorioConcurrente<Autor>, IAutorRepositorio
     {
         public AutorRepositorio(LibreriaDbContext context) : base(context)
         {
@@ -11,8 +11,7 @@ namespace LibreriaApp2026.Datos.Repositorios
 
         public bool EstaRelacionado(Autor autor)
         {
-            //luego relacionar con Libros (tabla intermedia LibrosAutores)
-            return false;
+            return _context.LibrosAutores.Any(la => la.AutorId == autor.AutorId);
         }
 
         public bool Existe(Autor autor)

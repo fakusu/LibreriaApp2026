@@ -17,6 +17,9 @@ namespace LibreriaApp2026.Servicios.Validators
             RuleFor(x => x.PaisOrigen)
                 .NotEmpty().WithMessage("El país de origen es obligatorio.")
                 .MaximumLength(50).WithMessage("El país de origen no puede superar los 50 caracteres.");
+
+            RuleFor(x => x.RowVersion)
+                .NotNull().WithMessage("El campo de concurrencia es obligatorio.");
         }
     }
 }

@@ -34,6 +34,7 @@ namespace LibreriaApp2026.Servicios.Mapeadores
                 Nombre = editorialDto.Nombre,
                 PaisOrigen = editorialDto.PaisOrigen,
                 Activo = editorialDto.Activo,
+                RowVersion = editorialDto.RowVersion,
             };
         }
 
@@ -45,6 +46,16 @@ namespace LibreriaApp2026.Servicios.Mapeadores
                 Nombre = editorial.Nombre,
                 PaisOrigen = editorial.PaisOrigen,
                 Activo = editorial.Activo,
+                RowVersion = editorial.RowVersion,
+            };
+        }
+
+        public static EditorialDeleteDto ToDeleteDto(Editorial editorial)
+        {
+            return new EditorialDeleteDto
+            {
+                EditorialId = editorial.EditorialId,
+                RowVersion = editorial.RowVersion,
             };
         }
     }

@@ -34,6 +34,7 @@ namespace LibreriaApp2026.Servicios.Mapeadores
                 Nombre = temaDto.Nombre,
                 Descripcion = temaDto.Descripcion,
                 Activo = temaDto.Activo,
+                RowVersion = temaDto.RowVersion,
             };
         }
 
@@ -45,6 +46,16 @@ namespace LibreriaApp2026.Servicios.Mapeadores
                 Nombre = tema.Nombre,
                 Descripcion = tema.Descripcion,
                 Activo = tema.Activo,
+                RowVersion = tema.RowVersion,
+            };
+        }
+
+        public static TemaDeleteDto ToDeleteDto(Tema tema)
+        {
+            return new TemaDeleteDto
+            {
+                TemaId = tema.TemaId,
+                RowVersion = tema.RowVersion,
             };
         }
     }

@@ -39,6 +39,7 @@ namespace LibreriaApp2026.Servicios.Mapeadores
                 FechaNacimiento = autorDto.FechaNacimiento,
                 Nacionalidad = autorDto.Nacionalidad,
                 Activo = autorDto.Activo,
+                RowVersion = autorDto.RowVersion,
             };
         }
 
@@ -52,6 +53,16 @@ namespace LibreriaApp2026.Servicios.Mapeadores
                 FechaNacimiento = autor.FechaNacimiento,
                 Nacionalidad = autor.Nacionalidad,
                 Activo = autor.Activo,
+                RowVersion = autor.RowVersion,
+            };
+        }
+
+        public static AutorDeleteDto ToDeleteDto(Autor autor)
+        {
+            return new AutorDeleteDto
+            {
+                AutorId = autor.AutorId,
+                RowVersion = autor.RowVersion,
             };
         }
     }

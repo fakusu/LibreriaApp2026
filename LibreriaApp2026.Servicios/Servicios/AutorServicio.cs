@@ -5,6 +5,7 @@ using LibreriaApp2026.Servicios.DTOs.Autor;
 using LibreriaApp2026.Servicios.Interfaces;
 using LibreriaApp2026.Servicios.Mapeadores;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace LibreriaApp2026.Servicios.Servicios
@@ -89,9 +90,14 @@ namespace LibreriaApp2026.Servicios.Servicios
 
             try
             {
-                _unitOfWork.Autores.Editar(autor, autor.AutorId);
+                _unitOfWork.Autores.Editar(autor, autor.AutorId, autorDto.RowVersion);
                 _unitOfWork.Save();
                 return Result.Success();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                _unitOfWork.RollBack();
+                return Result.ConcurrencyFailure("Otro usuario modificó el registro.\nLa grilla se recargará automáticamente");
             }
             catch (Exception ex)
             {
@@ -100,9 +106,9 @@ namespace LibreriaApp2026.Servicios.Servicios
             }
         }
 
-        public Result Borrar(int id)
+        public Result Borrar(AutorDeleteDto autorDto)
         {
-            var autor = _unitOfWork.Autores.ObtenerPorId(id);
+            var autor = _unitOfWork.Autores.ObtenerPorId(autorDto.AutorId);
             if (autor == null)
             {
                 return Result.Failure("Autor no encontrado.");
@@ -116,9 +122,14 @@ namespace LibreriaApp2026.Servicios.Servicios
 
             try
             {
-                _unitOfWork.Autores.Borrar(autor.AutorId);
+                _unitOfWork.Autores.Borrar(autor.AutorId, autorDto.RowVersion);
                 _unitOfWork.Save();
                 return Result.Success();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                _unitOfWork.RollBack();
+                return Result.ConcurrencyFailure("Otro usuario modificó el registro.\nLa grilla se recargará automáticamente");
             }
             catch (Exception ex)
             {
@@ -176,6 +187,25 @@ namespace LibreriaApp2026.Servicios.Servicios
             catch (Exception ex)
             {
                 return Result<AutorUpdateDto>.Failure(ex.Message);
+            }
+        }
+
+        public Result<AutorDeleteDto> ObtenerParaBorrar(int id)
+        {
+            try
+            {
+                var autor = _unitOfWork.Autores.ObtenerPorId(id);
+                if (autor != null)
+                {
+                    var autorDto = AutorMapper.ToDeleteDto(autor);
+                    return Result<AutorDeleteDto>.Success(autorDto);
+                }
+
+                return Result<AutorDeleteDto>.Failure("Autor no encontrado.");
+            }
+            catch (Exception ex)
+            {
+                return Result<AutorDeleteDto>.Failure(ex.Message);
             }
         }
 

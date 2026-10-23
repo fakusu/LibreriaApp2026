@@ -18,6 +18,7 @@ namespace LibreriaApp2026.Windows
         }
 
         public bool DataChanged { get; private set; }
+        public bool ConcurrencyConflict { get; private set; }//para avisar al listado que hubo conflicto de concurrencia
 
         private static DateTime FechaMaxima => DateTime.Today.AddYears(-AutorCreateDtoValidator.EdadMinima);
 
@@ -105,6 +106,14 @@ namespace LibreriaApp2026.Windows
                         _autorUpdateDto.Activo = chkActivo.Checked;
 
                         var resultadoEditar = _autorServicio.Editar(_autorUpdateDto);
+                        if (resultadoEditar.IsConcurrencyConflict)
+                        {
+                            ErrorHelper.MostrarErrores(resultadoEditar.Errors);
+                            ConcurrencyConflict = true;
+                            DialogResult = DialogResult.Cancel;
+                            Close();
+                            return;
+                        }
                         if (resultadoEditar.IsFailure)
                         {
                             ErrorHelper.MostrarErrores(resultadoEditar.Errors);

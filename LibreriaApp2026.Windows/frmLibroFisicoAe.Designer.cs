@@ -37,6 +37,16 @@ namespace LibreriaApp2026.Windows
             txtISBN = new TextBox();
             label4 = new Label();
             cboEditorial = new ComboBox();
+            lblAutores = new Label();
+            txtBuscarAutores = new TextBox();
+            clbAutores = new CheckedListBox();
+            lblCantidadAutores = new Label();
+            chkSoloAutores = new CheckBox();
+            lblTemas = new Label();
+            txtBuscarTemas = new TextBox();
+            clbTemas = new CheckedListBox();
+            lblCantidadTemas = new Label();
+            chkSoloTemas = new CheckBox();
             label5 = new Label();
             nudAnio = new NumericUpDown();
             label6 = new Label();
@@ -218,6 +228,90 @@ namespace LibreriaApp2026.Windows
             nudPeso.Size = new Size(90, 23);
             nudPeso.TabIndex = 17;
             //
+            // lblAutores
+            //
+            lblAutores.AutoSize = true;
+            lblAutores.Location = new Point(610, 28);
+            lblAutores.Name = "lblAutores";
+            lblAutores.TabIndex = 18;
+            lblAutores.Text = "Autores:";
+            //
+            // txtBuscarAutores
+            //
+            txtBuscarAutores.Location = new Point(610, 48);
+            txtBuscarAutores.Name = "txtBuscarAutores";
+            txtBuscarAutores.PlaceholderText = "Buscar autor…";
+            txtBuscarAutores.Size = new Size(280, 23);
+            txtBuscarAutores.TabIndex = 19;
+            //
+            // clbAutores
+            //
+            clbAutores.CheckOnClick = true;
+            clbAutores.FormattingEnabled = true;
+            clbAutores.Location = new Point(610, 75);
+            clbAutores.Name = "clbAutores";
+            clbAutores.Size = new Size(280, 112);
+            clbAutores.TabIndex = 20;
+            //
+            // lblCantidadAutores
+            //
+            lblCantidadAutores.AutoSize = true;
+            lblCantidadAutores.Location = new Point(610, 190);
+            lblCantidadAutores.Name = "lblCantidadAutores";
+            lblCantidadAutores.TabIndex = 21;
+            lblCantidadAutores.Text = "0 seleccionados";
+            //
+            // chkSoloAutores
+            //
+            chkSoloAutores.AutoSize = true;
+            chkSoloAutores.Location = new Point(740, 189);
+            chkSoloAutores.Name = "chkSoloAutores";
+            chkSoloAutores.TabIndex = 22;
+            chkSoloAutores.Text = "Ver solo seleccionados";
+            chkSoloAutores.UseVisualStyleBackColor = true;
+            //
+            // lblTemas
+            //
+            lblTemas.AutoSize = true;
+            lblTemas.Location = new Point(610, 220);
+            lblTemas.Name = "lblTemas";
+            lblTemas.TabIndex = 23;
+            lblTemas.Text = "Temas:";
+            //
+            // txtBuscarTemas
+            //
+            txtBuscarTemas.Location = new Point(610, 240);
+            txtBuscarTemas.Name = "txtBuscarTemas";
+            txtBuscarTemas.PlaceholderText = "Buscar tema…";
+            txtBuscarTemas.Size = new Size(280, 23);
+            txtBuscarTemas.TabIndex = 24;
+            //
+            // clbTemas
+            //
+            clbTemas.CheckOnClick = true;
+            clbTemas.FormattingEnabled = true;
+            clbTemas.Location = new Point(610, 267);
+            clbTemas.Name = "clbTemas";
+            clbTemas.Size = new Size(280, 112);
+            clbTemas.TabIndex = 25;
+            //
+            // lblCantidadTemas
+            //
+            lblCantidadTemas.AutoSize = true;
+            lblCantidadTemas.Location = new Point(610, 382);
+            lblCantidadTemas.Name = "lblCantidadTemas";
+            lblCantidadTemas.TabIndex = 26;
+            lblCantidadTemas.Text = "0 seleccionados";
+            //
+            // chkSoloTemas
+            //
+            chkSoloTemas.AutoSize = true;
+            chkSoloTemas.Location = new Point(740, 381);
+            chkSoloTemas.Name = "chkSoloTemas";
+            chkSoloTemas.TabIndex = 27;
+            chkSoloTemas.Text = "Ver solo seleccionados";
+            chkSoloTemas.UseVisualStyleBackColor = true;
+            //
             // chkActivo
             //
             chkActivo.AutoSize = true;
@@ -225,7 +319,7 @@ namespace LibreriaApp2026.Windows
             chkActivo.Location = new Point(45, 380);
             chkActivo.Name = "chkActivo";
             chkActivo.Size = new Size(65, 19);
-            chkActivo.TabIndex = 18;
+            chkActivo.TabIndex = 28;
             chkActivo.Text = "Activo?";
             chkActivo.UseVisualStyleBackColor = true;
             //
@@ -239,7 +333,7 @@ namespace LibreriaApp2026.Windows
             btnOK.Location = new Point(49, 417);
             btnOK.Name = "btnOK";
             btnOK.Size = new Size(75, 60);
-            btnOK.TabIndex = 19;
+            btnOK.TabIndex = 29;
             btnOK.Text = "OK";
             btnOK.TextImageRelation = TextImageRelation.ImageAboveText;
             btnOK.UseVisualStyleBackColor = true;
@@ -248,10 +342,10 @@ namespace LibreriaApp2026.Windows
             // btnCancelar
             //
             btnCancelar.Image = Properties.Resources.cancel_24px;
-            btnCancelar.Location = new Point(498, 417);
+            btnCancelar.Location = new Point(815, 417);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(75, 60);
-            btnCancelar.TabIndex = 20;
+            btnCancelar.TabIndex = 30;
             btnCancelar.Text = "Cancelar";
             btnCancelar.TextImageRelation = TextImageRelation.ImageAboveText;
             btnCancelar.UseVisualStyleBackColor = true;
@@ -261,7 +355,7 @@ namespace LibreriaApp2026.Windows
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(630, 502);
+            ClientSize = new Size(935, 502);
             Controls.Add(btnCancelar);
             Controls.Add(btnOK);
             Controls.Add(chkActivo);
@@ -275,6 +369,16 @@ namespace LibreriaApp2026.Windows
             Controls.Add(label6);
             Controls.Add(nudAnio);
             Controls.Add(label5);
+            Controls.Add(chkSoloTemas);
+            Controls.Add(lblCantidadTemas);
+            Controls.Add(clbTemas);
+            Controls.Add(txtBuscarTemas);
+            Controls.Add(lblTemas);
+            Controls.Add(chkSoloAutores);
+            Controls.Add(lblCantidadAutores);
+            Controls.Add(clbAutores);
+            Controls.Add(txtBuscarAutores);
+            Controls.Add(lblAutores);
             Controls.Add(cboEditorial);
             Controls.Add(label4);
             Controls.Add(txtISBN);
@@ -309,6 +413,16 @@ namespace LibreriaApp2026.Windows
         private TextBox txtISBN;
         private Label label4;
         private ComboBox cboEditorial;
+        private Label lblAutores;
+        private TextBox txtBuscarAutores;
+        private CheckedListBox clbAutores;
+        private Label lblCantidadAutores;
+        private CheckBox chkSoloAutores;
+        private Label lblTemas;
+        private TextBox txtBuscarTemas;
+        private CheckedListBox clbTemas;
+        private Label lblCantidadTemas;
+        private CheckBox chkSoloTemas;
         private Label label5;
         private NumericUpDown nudAnio;
         private Label label6;

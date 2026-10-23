@@ -10,6 +10,7 @@ namespace LibreriaApp2026.Datos.EntityTypeConfiguration
         {
             builder.ToTable("Autores");
             builder.HasKey(a => a.AutorId);
+            builder.Property(a => a.RowVersion).IsRowVersion();
             builder.Property(a => a.Nombre).IsRequired().HasMaxLength(50);
             builder.Property(a => a.Apellido).IsRequired().HasMaxLength(50);
             builder.Property(a => a.FechaNacimiento).IsRequired().HasColumnType("date");

@@ -2,8 +2,24 @@ namespace LibreriaApp2026.Entidades
 {
     public class LibroFisico : Libro
     {
+        private int _stock;
         private int _pesoEnGramos;
         private int _cantidadPaginas;
+
+        // Solo los libros físicos manejan stock
+        public int Stock
+        {
+            get => _stock;
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value), "El stock no puede ser negativo.");
+                }
+
+                _stock = value;
+            }
+        }
 
         public int PesoEnGramos
         {
@@ -36,16 +52,18 @@ namespace LibreriaApp2026.Entidades
         public LibroFisico() { }
 
         public LibroFisico(string titulo, string? descripcion, string isbn, int anioPublicacion,
-            int stock, decimal precio, int editorialId, int pesoEnGramos, int cantidadPaginas)
-            : base(titulo, descripcion, isbn, anioPublicacion, stock, precio, editorialId)
+            decimal precio, int editorialId, IEnumerable<int> autoresIds, IEnumerable<int> temasIds,
+            int stock, int pesoEnGramos, int cantidadPaginas)
+            : base(titulo, descripcion, isbn, anioPublicacion, precio, editorialId, autoresIds, temasIds)
         {
+            Stock = stock;
             PesoEnGramos = pesoEnGramos;
             CantidadPaginas = cantidadPaginas;
         }
 
         public override string MostrarDatos()
         {
-            return $"Libro físico: {base.MostrarDatos()} - {CantidadPaginas} págs. - {PesoEnGramos} grs";
+            return $"Libro físico: {base.MostrarDatos()} - Stock: {Stock} - {CantidadPaginas} págs. - {PesoEnGramos} grs";
         }
     }
 }

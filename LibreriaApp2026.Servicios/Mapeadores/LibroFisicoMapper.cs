@@ -12,8 +12,16 @@ namespace LibreriaApp2026.Servicios.Mapeadores
                 ProductoId = libro.ProductoId,
                 Titulo = libro.Nombre,
                 ISBN = libro.ISBN,
-                //la editorial solo viene cargada si se hizo el Include
+                //la editorial, los autores y los temas solo vienen cargados si se hizo el Include
                 Editorial = libro.Editorial?.Nombre ?? string.Empty,
+                Autores = string.Join("; ", libro.LibrosAutores
+                    .Where(la => la.Autor is not null)
+                    .Select(la => $"{la.Autor.Apellido}, {la.Autor.Nombre}")
+                    .Order()),
+                Temas = string.Join("; ", libro.LibrosTemas
+                    .Where(lt => lt.Tema is not null)
+                    .Select(lt => lt.Tema.Nombre)
+                    .Order()),
                 AnioPublicacion = libro.AnioPublicacion,
                 Precio = libro.Precio,
                 Stock = libro.Stock,
@@ -25,7 +33,7 @@ namespace LibreriaApp2026.Servicios.Mapeadores
 
         public static LibroFisico ToEntidad(LibroFisicoCreateDto libroDto)
         {
-            return new LibroFisico
+            var libro = new LibroFisico
             {
                 Nombre = libroDto.Titulo,
                 Descripcion = libroDto.Descripcion,
@@ -38,11 +46,14 @@ namespace LibreriaApp2026.Servicios.Mapeadores
                 CantidadPaginas = libroDto.CantidadPaginas,
                 Activo = libroDto.Activo
             };
+            libro.AsignarAutores(libroDto.AutoresIds);
+            libro.AsignarTemas(libroDto.TemasIds);
+            return libro;
         }
 
         public static LibroFisico ToEntidad(LibroFisicoUpdateDto libroDto)
         {
-            return new LibroFisico
+            var libro = new LibroFisico
             {
                 ProductoId = libroDto.ProductoId,
                 Nombre = libroDto.Titulo,
@@ -55,7 +66,11 @@ namespace LibreriaApp2026.Servicios.Mapeadores
                 PesoEnGramos = libroDto.PesoEnGramos,
                 CantidadPaginas = libroDto.CantidadPaginas,
                 Activo = libroDto.Activo,
+                RowVersion = libroDto.RowVersion,
             };
+            libro.AsignarAutores(libroDto.AutoresIds);
+            libro.AsignarTemas(libroDto.TemasIds);
+            return libro;
         }
 
         public static LibroFisicoUpdateDto ToUpdateDto(LibroFisico libro)
@@ -70,9 +85,21 @@ namespace LibreriaApp2026.Servicios.Mapeadores
                 Stock = libro.Stock,
                 Precio = libro.Precio,
                 EditorialId = libro.EditorialId,
+                AutoresIds = libro.LibrosAutores.Select(la => la.AutorId).ToList(),
+                TemasIds = libro.LibrosTemas.Select(lt => lt.TemaId).ToList(),
                 PesoEnGramos = libro.PesoEnGramos,
                 CantidadPaginas = libro.CantidadPaginas,
                 Activo = libro.Activo,
+                RowVersion = libro.RowVersion,
+            };
+        }
+
+        public static LibroFisicoDeleteDto ToDeleteDto(LibroFisico libro)
+        {
+            return new LibroFisicoDeleteDto
+            {
+                ProductoId = libro.ProductoId,
+                RowVersion = libro.RowVersion,
             };
         }
     }

@@ -3,7 +3,7 @@ using LibreriaApp2026.Entidades;
 
 namespace LibreriaApp2026.Datos.Repositorios
 {
-    public class EditorialRepositorio : RepositorioGenerico<Editorial>, IEditorialRepositorio
+    public class EditorialRepositorio : RepositorioConcurrente<Editorial>, IEditorialRepositorio
     {
         public EditorialRepositorio(LibreriaDbContext context) : base(context)
         {

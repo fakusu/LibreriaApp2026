@@ -10,6 +10,7 @@ namespace LibreriaApp2026.Datos.EntityTypeConfiguration
         {
             builder.ToTable("Editoriales");
             builder.HasKey(e => e.EditorialId);
+            builder.Property(e => e.RowVersion).IsRowVersion();
             builder.Property(e => e.Nombre).IsRequired().HasMaxLength(100);
             builder.Property(e => e.PaisOrigen).IsRequired().HasMaxLength(50);
             builder.HasIndex(e => e.Nombre, "IX_Editoriales_Nombre").IsUnique();
