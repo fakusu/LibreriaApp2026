@@ -24,6 +24,7 @@ namespace LibreriaApp2026.Windows
         {
             InitializeComponent();
             _serviceProvider = serviceProvider;
+            dgvDatos.AutoGenerateColumns = false;//solo se muestran las columnas definidas en el diseñador
             dgvDatos.DataSource = _bindingSource;
         }
 
