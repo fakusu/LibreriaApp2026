@@ -30,6 +30,34 @@ namespace LibreriaApp2026.Servicios.Mapeadores
             };
         }
 
+        public static LibroDigitalDetailDto ToDetailDto(LibroDigital libro)
+        {
+            return new LibroDigitalDetailDto
+            {
+                ProductoId = libro.ProductoId,
+                Titulo = libro.Nombre,
+                Descripcion = libro.Descripcion,
+                ISBN = libro.ISBN,
+                Editorial = libro.Editorial?.Nombre ?? string.Empty,
+                Autores = libro.LibrosAutores
+                    .Where(la => la.Autor is not null)
+                    .Select(la => $"{la.Autor.Apellido}, {la.Autor.Nombre}")
+                    .Order()
+                    .ToList(),
+                Temas = libro.LibrosTemas
+                    .Where(lt => lt.Tema is not null)
+                    .Select(lt => lt.Tema.Nombre)
+                    .Order()
+                    .ToList(),
+                AnioPublicacion = libro.AnioPublicacion,
+                Precio = libro.Precio,
+                Formato = libro.Formato,
+                TamanioMB = libro.TamanioMB,
+                UrlDescarga = libro.UrlDescarga,
+                Activo = libro.Activo,
+            };
+        }
+
         public static LibroDigital ToEntidad(LibroDigitalCreateDto libroDto)
         {
             var libro = new LibroDigital

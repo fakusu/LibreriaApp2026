@@ -96,6 +96,54 @@ namespace LibreriaApp2026.Windows
             }
         }
 
+        private void tsbDetalles_Click(object sender, EventArgs e)
+        {
+            MostrarDetalle();
+        }
+
+        private void dgvDatos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;//doble clic en el encabezado
+            MostrarDetalle();
+        }
+
+        private void MostrarDetalle()
+        {
+            if (_bindingSource.Current == null)
+            {
+                MessageBox.Show("Debe seleccionar una fila de la grilla",
+                    "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            var libroListDto = (LibroFisicoListDto)_bindingSource.Current;
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                try
+                {
+                    var libroServicio = scope.ServiceProvider
+                        .GetRequiredService<ILibroFisicoServicio>();
+                    var resultadoConsulta = libroServicio
+                        .ObtenerDetalle(libroListDto.ProductoId);
+                    if (resultadoConsulta.IsFailure)
+                    {
+                        ErrorHelper.MostrarErrores(resultadoConsulta.Errors);
+                        return;
+                    }
+                    using (frmDetalleLibroFisico frm = scope.ServiceProvider
+                        .GetRequiredService<frmDetalleLibroFisico>())
+                    {
+                        frm.SetLibro(resultadoConsulta.Value!);
+                        frm.ShowDialog();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
         private void tsbBorrar_Click(object sender, EventArgs e)
         {
             if (_bindingSource.Current == null)
@@ -287,6 +335,11 @@ namespace LibreriaApp2026.Windows
         {
             _estado.UltimaPagina();
             RecargarGrilla();
+        }
+
+        private void dgvDatos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

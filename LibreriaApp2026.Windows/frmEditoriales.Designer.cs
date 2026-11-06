@@ -218,8 +218,11 @@ namespace LibreriaApp2026.Windows
             // 
             dgvDatos.AllowUserToAddRows = false;
             dgvDatos.AllowUserToDeleteRows = false;
+            dgvDatos.AllowUserToResizeColumns = false;
+            dgvDatos.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
             dgvDatos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvDatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvDatos.Columns.AddRange(new DataGridViewColumn[] { colId, colNombre, colPaisOrigen, colActivo });
             dgvDatos.Dock = DockStyle.Fill;
@@ -261,7 +264,7 @@ namespace LibreriaApp2026.Windows
             colPaisOrigen.MinimumWidth = 6;
             colPaisOrigen.Name = "colPaisOrigen";
             colPaisOrigen.ReadOnly = true;
-            colPaisOrigen.Width = 200;
+            colPaisOrigen.Width = 133;
             // 
             // colActivo
             // 
@@ -270,7 +273,7 @@ namespace LibreriaApp2026.Windows
             colActivo.MinimumWidth = 6;
             colActivo.Name = "colActivo";
             colActivo.ReadOnly = true;
-            colActivo.Width = 125;
+            colActivo.Width = 57;
             // 
             // btnUltimo
             // 

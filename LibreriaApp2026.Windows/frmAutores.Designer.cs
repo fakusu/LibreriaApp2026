@@ -220,8 +220,11 @@
             // 
             dgvDatos.AllowUserToAddRows = false;
             dgvDatos.AllowUserToDeleteRows = false;
+            dgvDatos.AllowUserToResizeColumns = false;
+            dgvDatos.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
             dgvDatos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvDatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvDatos.Columns.AddRange(new DataGridViewColumn[] { colId, colNombre, colNacionalidad, colFechaNacimiento, colActivo });
             dgvDatos.Dock = DockStyle.Fill;
@@ -263,7 +266,7 @@
             colNacionalidad.MinimumWidth = 6;
             colNacionalidad.Name = "colNacionalidad";
             colNacionalidad.ReadOnly = true;
-            colNacionalidad.Width = 160;
+            colNacionalidad.Width = 127;
             // 
             // colFechaNacimiento
             // 
@@ -274,7 +277,7 @@
             colFechaNacimiento.MinimumWidth = 6;
             colFechaNacimiento.Name = "colFechaNacimiento";
             colFechaNacimiento.ReadOnly = true;
-            colFechaNacimiento.Width = 140;
+            colFechaNacimiento.Width = 163;
             // 
             // colActivo
             // 
@@ -283,7 +286,7 @@
             colActivo.MinimumWidth = 6;
             colActivo.Name = "colActivo";
             colActivo.ReadOnly = true;
-            colActivo.Width = 125;
+            colActivo.Width = 57;
             // 
             // btnUltimo
             // 

@@ -7,6 +7,7 @@ namespace LibreriaApp2026.Servicios.Interfaces
     {
         Result<List<LibroFisicoListDto>> ObtenerTodos();
         Result<LibroFisicoListDto> ObtenerPorId(int id);
+        Result<LibroFisicoDetailDto> ObtenerDetalle(int id);
         Result<LibroFisicoUpdateDto> ObtenerParaEditar(int id);
         Result<LibroFisicoDeleteDto> ObtenerParaBorrar(int id);
         Result Agregar(LibroFisicoCreateDto libroDto);

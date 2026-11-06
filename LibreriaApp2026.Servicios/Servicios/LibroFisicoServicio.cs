@@ -182,6 +182,29 @@ namespace LibreriaApp2026.Servicios.Servicios
             }
         }
 
+        public Result<LibroFisicoDetailDto> ObtenerDetalle(int id)
+        {
+            try
+            {
+                var libro = _unitOfWork.LibrosFisicos.Query()
+                    .Include(l => l.Editorial)
+                    .Include(l => l.LibrosAutores).ThenInclude(la => la.Autor)
+                    .Include(l => l.LibrosTemas).ThenInclude(lt => lt.Tema)
+                    .FirstOrDefault(l => l.ProductoId == id);
+                if (libro == null)
+                {
+                    return Result<LibroFisicoDetailDto>.Failure("Libro no encontrado.");
+                }
+
+                var libroDto = LibroFisicoMapper.ToDetailDto(libro);
+                return Result<LibroFisicoDetailDto>.Success(libroDto);
+            }
+            catch (Exception ex)
+            {
+                return Result<LibroFisicoDetailDto>.Failure(ex.Message);
+            }
+        }
+
         public Result<LibroFisicoUpdateDto> ObtenerParaEditar(int id)
         {
             try

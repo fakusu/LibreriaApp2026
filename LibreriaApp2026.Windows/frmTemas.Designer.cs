@@ -218,8 +218,11 @@
             // 
             dgvDatos.AllowUserToAddRows = false;
             dgvDatos.AllowUserToDeleteRows = false;
+            dgvDatos.AllowUserToResizeColumns = false;
+            dgvDatos.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
             dgvDatos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvDatos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvDatos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvDatos.Columns.AddRange(new DataGridViewColumn[] { colId, colNombre, colDescripcion, colActivo });
             dgvDatos.Dock = DockStyle.Fill;
@@ -252,7 +255,7 @@
             colNombre.MinimumWidth = 6;
             colNombre.Name = "colNombre";
             colNombre.ReadOnly = true;
-            colNombre.Width = 200;
+            colNombre.Width = 74;
             // 
             // colDescripcion
             // 
@@ -271,7 +274,7 @@
             colActivo.MinimumWidth = 6;
             colActivo.Name = "colActivo";
             colActivo.ReadOnly = true;
-            colActivo.Width = 125;
+            colActivo.Width = 57;
             // 
             // btnUltimo
             // 
