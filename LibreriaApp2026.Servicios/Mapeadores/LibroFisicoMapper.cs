@@ -26,7 +26,6 @@ namespace LibreriaApp2026.Servicios.Mapeadores
                 Precio = libro.Precio,
                 Stock = libro.Stock,
                 CantidadPaginas = libro.CantidadPaginas,
-                PesoEnGramos = libro.PesoEnGramos,
                 Activo = libro.Activo,
             };
         }
@@ -54,7 +53,6 @@ namespace LibreriaApp2026.Servicios.Mapeadores
                 Precio = libro.Precio,
                 Stock = libro.Stock,
                 CantidadPaginas = libro.CantidadPaginas,
-                PesoEnGramos = libro.PesoEnGramos,
                 Activo = libro.Activo,
             };
         }
@@ -70,7 +68,6 @@ namespace LibreriaApp2026.Servicios.Mapeadores
                 Stock = libroDto.Stock,
                 Precio = libroDto.Precio,
                 EditorialId = libroDto.EditorialId,
-                PesoEnGramos = libroDto.PesoEnGramos,
                 CantidadPaginas = libroDto.CantidadPaginas,
                 Activo = libroDto.Activo
             };
@@ -91,7 +88,6 @@ namespace LibreriaApp2026.Servicios.Mapeadores
                 Stock = libroDto.Stock,
                 Precio = libroDto.Precio,
                 EditorialId = libroDto.EditorialId,
-                PesoEnGramos = libroDto.PesoEnGramos,
                 CantidadPaginas = libroDto.CantidadPaginas,
                 Activo = libroDto.Activo,
                 RowVersion = libroDto.RowVersion,
@@ -115,7 +111,6 @@ namespace LibreriaApp2026.Servicios.Mapeadores
                 EditorialId = libro.EditorialId,
                 AutoresIds = libro.LibrosAutores.Select(la => la.AutorId).ToList(),
                 TemasIds = libro.LibrosTemas.Select(lt => lt.TemaId).ToList(),
-                PesoEnGramos = libro.PesoEnGramos,
                 CantidadPaginas = libro.CantidadPaginas,
                 Activo = libro.Activo,
                 RowVersion = libro.RowVersion,

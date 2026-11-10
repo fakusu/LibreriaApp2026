@@ -83,7 +83,6 @@ namespace LibreriaApp2026.Servicios.Servicios
             libro.EditorialId = libroDto.EditorialId;
             libro.AsignarAutores(libroDto.AutoresIds);
             libro.AsignarTemas(libroDto.TemasIds);
-            libro.PesoEnGramos = libroDto.PesoEnGramos;
             libro.CantidadPaginas = libroDto.CantidadPaginas;
             libro.Activo = libroDto.Activo;
 
@@ -290,7 +289,6 @@ namespace LibreriaApp2026.Servicios.Servicios
                     "Precio" => q => esAscendente ? q.OrderBy(l => l.Precio) : q.OrderByDescending(l => l.Precio),
                     "Stock" => q => esAscendente ? q.OrderBy(l => l.Stock) : q.OrderByDescending(l => l.Stock),
                     "CantidadPaginas" => q => esAscendente ? q.OrderBy(l => l.CantidadPaginas) : q.OrderByDescending(l => l.CantidadPaginas),
-                    "PesoEnGramos" => q => esAscendente ? q.OrderBy(l => l.PesoEnGramos) : q.OrderByDescending(l => l.PesoEnGramos),
                     _ => q => esAscendente ? q.OrderBy(l => l.Nombre) : q.OrderByDescending(l => l.Nombre)
                 };
 

@@ -13,7 +13,6 @@ namespace LibreriaApp2026.Servicios.DTOs.LibroFisico
         public decimal Precio { get; set; }
         public int Stock { get; set; }
         public int CantidadPaginas { get; set; }
-        public int PesoEnGramos { get; set; }
         public bool Activo { get; set; }
     }
 }

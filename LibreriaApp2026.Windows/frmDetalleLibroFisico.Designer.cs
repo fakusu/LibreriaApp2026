@@ -42,8 +42,6 @@
             txtStock = new TextBox();
             lblPaginas = new Label();
             txtPaginas = new TextBox();
-            lblPeso = new Label();
-            txtPeso = new TextBox();
             lblDescripcion = new Label();
             txtDescripcion = new TextBox();
             lblAutores = new Label();
@@ -180,24 +178,6 @@
             txtPaginas.Size = new Size(194, 27);
             txtPaginas.TabIndex = 13;
             // 
-            // lblPeso
-            // 
-            lblPeso.AutoSize = true;
-            lblPeso.Location = new Point(366, 195);
-            lblPeso.Name = "lblPeso";
-            lblPeso.Size = new Size(65, 20);
-            lblPeso.TabIndex = 14;
-            lblPeso.Text = "Peso (g):";
-            // 
-            // txtPeso
-            // 
-            txtPeso.Location = new Point(469, 191);
-            txtPeso.Margin = new Padding(3, 4, 3, 4);
-            txtPeso.Name = "txtPeso";
-            txtPeso.ReadOnly = true;
-            txtPeso.Size = new Size(194, 27);
-            txtPeso.TabIndex = 15;
-            // 
             // lblDescripcion
             // 
             lblDescripcion.AutoSize = true;
@@ -297,8 +277,6 @@
             Controls.Add(lblAutores);
             Controls.Add(txtDescripcion);
             Controls.Add(lblDescripcion);
-            Controls.Add(txtPeso);
-            Controls.Add(lblPeso);
             Controls.Add(txtPaginas);
             Controls.Add(lblPaginas);
             Controls.Add(txtStock);
@@ -341,8 +319,6 @@
         private TextBox txtStock;
         private Label lblPaginas;
         private TextBox txtPaginas;
-        private Label lblPeso;
-        private TextBox txtPeso;
         private Label lblDescripcion;
         private TextBox txtDescripcion;
         private Label lblAutores;

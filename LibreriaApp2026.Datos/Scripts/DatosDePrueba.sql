@@ -51,26 +51,26 @@ CREATE TABLE #L
 (
     N INT IDENTITY(1,1), Tipo CHAR(1), ISBN NVARCHAR(13), Nombre NVARCHAR(150), Descripcion NVARCHAR(500),
     Anio INT, Precio DECIMAL(18,2), Editorial NVARCHAR(100), Autor NVARCHAR(100), Tema1 NVARCHAR(100), Tema2 NVARCHAR(100) NULL,
-    Peso INT NULL, Paginas INT NULL, Stock INT NULL, Formato NVARCHAR(10) NULL, MB DECIMAL(10,2) NULL, Url NVARCHAR(300) NULL
+    Paginas INT NULL, Stock INT NULL, Formato NVARCHAR(10) NULL, MB DECIMAL(10,2) NULL, Url NVARCHAR(300) NULL
 );
 
-INSERT INTO #L (Tipo, ISBN, Nombre, Descripcion, Anio, Precio, Editorial, Autor, Tema1, Tema2, Peso, Paginas, Stock)
+INSERT INTO #L (Tipo, ISBN, Nombre, Descripcion, Anio, Precio, Editorial, Autor, Tema1, Tema2, Paginas, Stock)
 VALUES
-('F', N'9789504900011', N'Rayuela', N'Novela experimental que se puede leer en más de un orden.', 1963, 21900, N'Alfaguara', N'Cort_zar', N'Novela', N'Literatura', 650, 736, 12),
-('F', N'9789504900012', N'El Aleph', N'Cuentos fantásticos sobre el infinito y los laberintos.', 1949, 14200, N'Debolsillo', N'Borges', N'Cuento', N'Literatura', 200, 192, 25),
-('F', N'9789504900013', N'Ficciones', N'Colección de cuentos sobre bibliotecas, espejos y tiempos paralelos.', 1944, 13800, N'Debolsillo', N'Borges', N'Cuento', N'Literatura', 210, 224, 18),
-('F', N'9789504900014', N'Cien años de soledad', N'La historia de la familia Buendía en Macondo.', 1967, 18500, N'Sudamericana', N'Garc_a M_rquez', N'Novela', N'Literatura', 480, 471, 30),
-('F', N'9789504900015', N'El amor en los tiempos del cólera', N'Una historia de amor que espera más de cincuenta años.', 1985, 17900, N'Planeta', N'Garc_a M_rquez', N'Novela', NULL, 520, 432, 9),
-('F', N'9789504900016', N'La casa de los espíritus', N'Saga familiar a lo largo de cuatro generaciones.', 1982, 16400, N'Planeta', N'Allende', N'Novela', N'Historia', 450, 448, 14),
-('F', N'9789504900017', N'El nombre de la rosa', N'Crímenes en una abadía benedictina del siglo XIV.', 1980, 19800, N'Lumen', N'Eco', N'Misterio', N'Historia', 700, 592, 8),
-('F', N'9789504900018', N'Yo, robot', N'Cuentos sobre las tres leyes de la robótica.', 1950, 15200, N'Minotauro', N'Asimov', N'Ciencia ficci_n', N'Cuento', 280, 288, 16),
-('F', N'9789504900019', N'Fundación e Imperio', N'Segunda entrega de la saga de la Fundación.', 1952, 15500, N'Minotauro', N'Asimov', N'Ciencia ficci_n', NULL, 300, 256, 11),
-('F', N'9789504900020', N'Sobre héroes y tumbas', N'Novela sobre Buenos Aires y el Informe sobre ciegos.', 1961, 19700, N'Seix Barral', N'Sabato', N'Novela', N'Literatura', 540, 512, 6),
-('F', N'9789504900021', N'La tregua', N'Diario de un oficinista a punto de jubilarse.', 1960, 16300, N'Seix Barral', N'Benedetti', N'Novela', NULL, 260, 208, 4),
-('F', N'9789504900022', N'It', N'Un grupo de amigos enfrenta a una criatura en Derry.', 1986, 24500, N'Debolsillo', N'King', N'Terror', NULL, 1100, 1138, 5),
-('F', N'9789504900023', N'La Comunidad del Anillo', N'Primera parte de El Señor de los Anillos.', 1954, 26500, N'Minotauro', N'Tolkien', N'Fantasia medieval', N'Aventura', 620, 576, 10),
-('F', N'9789504900024', N'Asesinato en el Orient Express', N'Poirot investiga un crimen en un tren detenido por la nieve.', 1934, 13900, N'Planeta', N'Christie', N'Policial', N'Misterio', 280, 256, 22),
-('F', N'9789504900025', N'Fahrenheit 451', N'Una sociedad donde los bomberos queman libros.', 1953, 14900, N'Minotauro', N'Bradbury', N'Ciencia ficci_n', N'Novela', 250, 224, 13);
+('F', N'9789504900011', N'Rayuela', N'Novela experimental que se puede leer en más de un orden.', 1963, 21900, N'Alfaguara', N'Cort_zar', N'Novela', N'Literatura', 736, 12),
+('F', N'9789504900012', N'El Aleph', N'Cuentos fantásticos sobre el infinito y los laberintos.', 1949, 14200, N'Debolsillo', N'Borges', N'Cuento', N'Literatura', 192, 25),
+('F', N'9789504900013', N'Ficciones', N'Colección de cuentos sobre bibliotecas, espejos y tiempos paralelos.', 1944, 13800, N'Debolsillo', N'Borges', N'Cuento', N'Literatura', 224, 18),
+('F', N'9789504900014', N'Cien años de soledad', N'La historia de la familia Buendía en Macondo.', 1967, 18500, N'Sudamericana', N'Garc_a M_rquez', N'Novela', N'Literatura', 471, 30),
+('F', N'9789504900015', N'El amor en los tiempos del cólera', N'Una historia de amor que espera más de cincuenta años.', 1985, 17900, N'Planeta', N'Garc_a M_rquez', N'Novela', NULL, 432, 9),
+('F', N'9789504900016', N'La casa de los espíritus', N'Saga familiar a lo largo de cuatro generaciones.', 1982, 16400, N'Planeta', N'Allende', N'Novela', N'Historia', 448, 14),
+('F', N'9789504900017', N'El nombre de la rosa', N'Crímenes en una abadía benedictina del siglo XIV.', 1980, 19800, N'Lumen', N'Eco', N'Misterio', N'Historia', 592, 8),
+('F', N'9789504900018', N'Yo, robot', N'Cuentos sobre las tres leyes de la robótica.', 1950, 15200, N'Minotauro', N'Asimov', N'Ciencia ficci_n', N'Cuento', 288, 16),
+('F', N'9789504900019', N'Fundación e Imperio', N'Segunda entrega de la saga de la Fundación.', 1952, 15500, N'Minotauro', N'Asimov', N'Ciencia ficci_n', NULL, 256, 11),
+('F', N'9789504900020', N'Sobre héroes y tumbas', N'Novela sobre Buenos Aires y el Informe sobre ciegos.', 1961, 19700, N'Seix Barral', N'Sabato', N'Novela', N'Literatura', 512, 6),
+('F', N'9789504900021', N'La tregua', N'Diario de un oficinista a punto de jubilarse.', 1960, 16300, N'Seix Barral', N'Benedetti', N'Novela', NULL, 208, 4),
+('F', N'9789504900022', N'It', N'Un grupo de amigos enfrenta a una criatura en Derry.', 1986, 24500, N'Debolsillo', N'King', N'Terror', NULL, 1138, 5),
+('F', N'9789504900023', N'La Comunidad del Anillo', N'Primera parte de El Señor de los Anillos.', 1954, 26500, N'Minotauro', N'Tolkien', N'Fantasia medieval', N'Aventura', 576, 10),
+('F', N'9789504900024', N'Asesinato en el Orient Express', N'Poirot investiga un crimen en un tren detenido por la nieve.', 1934, 13900, N'Planeta', N'Christie', N'Policial', N'Misterio', 256, 22),
+('F', N'9789504900025', N'Fahrenheit 451', N'Una sociedad donde los bomberos queman libros.', 1953, 14900, N'Minotauro', N'Bradbury', N'Ciencia ficci_n', N'Novela', 224, 13);
 
 INSERT INTO #L (Tipo, ISBN, Nombre, Descripcion, Anio, Precio, Editorial, Autor, Tema1, Tema2, Formato, MB, Url)
 VALUES
@@ -108,8 +108,8 @@ BEGIN
         SELECT @id, ISBN, Anio, Precio, @ed FROM #L WHERE N = @n;
 
         IF @tipo = 'F'
-            INSERT INTO LibrosFisicos (ProductoId, PesoEnGramos, CantidadPaginas, Stock)
-            SELECT @id, Peso, Paginas, Stock FROM #L WHERE N = @n;
+            INSERT INTO LibrosFisicos (ProductoId, CantidadPaginas, Stock)
+            SELECT @id, Paginas, Stock FROM #L WHERE N = @n;
         ELSE
             INSERT INTO LibrosDigitales (ProductoId, Formato, TamanioMB, UrlDescarga)
             SELECT @id, Formato, MB, Url FROM #L WHERE N = @n;

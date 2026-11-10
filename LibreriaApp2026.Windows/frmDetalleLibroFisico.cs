@@ -32,7 +32,6 @@ namespace LibreriaApp2026.Windows
             txtPrecio.Text = libroDto.Precio.ToString("C2");
             txtStock.Text = libroDto.Stock.ToString();
             txtPaginas.Text = libroDto.CantidadPaginas.ToString();
-            txtPeso.Text = libroDto.PesoEnGramos.ToString();
             txtDescripcion.Text = libroDto.Descripcion;
             lstAutores.DataSource = libroDto.Autores;
             lstTemas.DataSource = libroDto.Temas;

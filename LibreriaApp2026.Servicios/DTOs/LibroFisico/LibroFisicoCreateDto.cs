@@ -11,7 +11,6 @@ namespace LibreriaApp2026.Servicios.DTOs.LibroFisico
         public int EditorialId { get; set; }
         public List<int> AutoresIds { get; set; } = new();
         public List<int> TemasIds { get; set; } = new();
-        public int PesoEnGramos { get; set; }
         public int CantidadPaginas { get; set; }
         public bool Activo { get; set; }
     }

@@ -57,7 +57,6 @@ namespace LibreriaApp2026.Windows
                 nudPrecio.Value = _libroUpdateDto.Precio;
                 nudStock.Value = _libroUpdateDto.Stock;
                 nudPaginas.Value = _libroUpdateDto.CantidadPaginas;
-                nudPeso.Value = _libroUpdateDto.PesoEnGramos;
                 chkActivo.Checked = _libroUpdateDto.Activo;
                 chkActivo.Enabled = true;
                 _esEdicion = true;
@@ -179,7 +178,6 @@ namespace LibreriaApp2026.Windows
                             Precio = nudPrecio.Value,
                             Stock = (int)nudStock.Value,
                             CantidadPaginas = (int)nudPaginas.Value,
-                            PesoEnGramos = (int)nudPeso.Value,
                             Activo = true
                         };
                         var resultadoAgregar = _libroServicio.Agregar(libroCreateDto);
@@ -210,7 +208,6 @@ namespace LibreriaApp2026.Windows
                         _libroUpdateDto.Precio = nudPrecio.Value;
                         _libroUpdateDto.Stock = (int)nudStock.Value;
                         _libroUpdateDto.CantidadPaginas = (int)nudPaginas.Value;
-                        _libroUpdateDto.PesoEnGramos = (int)nudPeso.Value;
                         _libroUpdateDto.Activo = chkActivo.Checked;
 
                         var resultadoEditar = _libroServicio.Editar(_libroUpdateDto);
@@ -254,7 +251,6 @@ namespace LibreriaApp2026.Windows
             nudPrecio.Value = 0;
             nudStock.Value = 0;
             nudPaginas.Value = nudPaginas.Minimum;
-            nudPeso.Value = nudPeso.Minimum;
             chkActivo.Checked = true;
             chkActivo.Enabled = false;
             txtTitulo.Focus();
@@ -293,11 +289,6 @@ namespace LibreriaApp2026.Windows
             {
                 valido = false;
                 errorProvider1.SetError(nudPaginas, "La cantidad de páginas debe ser mayor a cero");
-            }
-            if (nudPeso.Value <= 0)
-            {
-                valido = false;
-                errorProvider1.SetError(nudPeso, "El peso debe ser mayor a cero");
             }
             return valido;
         }

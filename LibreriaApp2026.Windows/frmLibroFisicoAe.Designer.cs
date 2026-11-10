@@ -55,8 +55,6 @@ namespace LibreriaApp2026.Windows
             nudStock = new NumericUpDown();
             label8 = new Label();
             nudPaginas = new NumericUpDown();
-            label9 = new Label();
-            nudPeso = new NumericUpDown();
             chkActivo = new CheckBox();
             errorProvider1 = new ErrorProvider(components);
             btnOK = new Button();
@@ -65,7 +63,6 @@ namespace LibreriaApp2026.Windows
             ((System.ComponentModel.ISupportInitialize)nudPrecio).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudStock).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudPaginas).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)nudPeso).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
@@ -320,33 +317,12 @@ namespace LibreriaApp2026.Windows
             nudPaginas.TabIndex = 15;
             nudPaginas.TextAlign = HorizontalAlignment.Right;
             nudPaginas.Value = new decimal(new int[] { 1, 0, 0, 0 });
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Location = new Point(51, 464);
-            label9.Name = "label9";
-            label9.Size = new Size(106, 20);
-            label9.TabIndex = 16;
-            label9.Text = "Peso (gramos):";
-            // 
-            // nudPeso
-            // 
-            nudPeso.Location = new Point(198, 460);
-            nudPeso.Margin = new Padding(3, 4, 3, 4);
-            nudPeso.Maximum = new decimal(new int[] { 20000, 0, 0, 0 });
-            nudPeso.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            nudPeso.Name = "nudPeso";
-            nudPeso.Size = new Size(103, 27);
-            nudPeso.TabIndex = 17;
-            nudPeso.TextAlign = HorizontalAlignment.Right;
-            nudPeso.Value = new decimal(new int[] { 1, 0, 0, 0 });
-            // 
+            //
             // chkActivo
-            // 
+            //
             chkActivo.AutoSize = true;
             chkActivo.CheckAlign = ContentAlignment.MiddleRight;
-            chkActivo.Location = new Point(51, 507);
+            chkActivo.Location = new Point(51, 462);
             chkActivo.Margin = new Padding(3, 4, 3, 4);
             chkActivo.Name = "chkActivo";
             chkActivo.Size = new Size(80, 24);
@@ -393,8 +369,6 @@ namespace LibreriaApp2026.Windows
             Controls.Add(btnCancelar);
             Controls.Add(btnOK);
             Controls.Add(chkActivo);
-            Controls.Add(nudPeso);
-            Controls.Add(label9);
             Controls.Add(nudPaginas);
             Controls.Add(label8);
             Controls.Add(nudStock);
@@ -432,7 +406,6 @@ namespace LibreriaApp2026.Windows
             ((System.ComponentModel.ISupportInitialize)nudPrecio).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudStock).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudPaginas).EndInit();
-            ((System.ComponentModel.ISupportInitialize)nudPeso).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -466,8 +439,6 @@ namespace LibreriaApp2026.Windows
         private NumericUpDown nudStock;
         private Label label8;
         private NumericUpDown nudPaginas;
-        private Label label9;
-        private NumericUpDown nudPeso;
         private CheckBox chkActivo;
         private ErrorProvider errorProvider1;
         private Button btnOK;

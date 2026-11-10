@@ -38,9 +38,6 @@ namespace LibreriaApp2026.Servicios.Validators
             RuleFor(x => x.TemasIds)
                 .NotEmpty().WithMessage("Debe seleccionar al menos un tema.");
 
-            RuleFor(x => x.PesoEnGramos)
-                .GreaterThan(0).WithMessage("El peso debe ser mayor a cero.");
-
             RuleFor(x => x.CantidadPaginas)
                 .GreaterThan(0).WithMessage("La cantidad de páginas debe ser mayor a cero.");
         }

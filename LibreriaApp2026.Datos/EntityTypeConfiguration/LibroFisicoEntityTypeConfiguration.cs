@@ -10,7 +10,6 @@ namespace LibreriaApp2026.Datos.EntityTypeConfiguration
         {
             builder.ToTable("LibrosFisicos");
             builder.Property(l => l.Stock).IsRequired();
-            builder.Property(l => l.PesoEnGramos).IsRequired();
             builder.Property(l => l.CantidadPaginas).IsRequired();
         }
     }
