@@ -209,8 +209,8 @@
             splitContainer1.Panel2.Controls.Add(lblCantidad);
             splitContainer1.Panel2.Controls.Add(label2);
             splitContainer1.Panel2.Controls.Add(label1);
-            splitContainer1.Size = new Size(914, 525);
-            splitContainer1.SplitterDistance = 443;
+            splitContainer1.Size = new Size(914, 415);
+            splitContainer1.SplitterDistance = 333;
             splitContainer1.SplitterWidth = 5;
             splitContainer1.TabIndex = 1;
             // 
@@ -234,7 +234,7 @@
             dgvDatos.RowHeadersVisible = false;
             dgvDatos.RowHeadersWidth = 51;
             dgvDatos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvDatos.Size = new Size(914, 443);
+            dgvDatos.Size = new Size(914, 333);
             dgvDatos.TabIndex = 0;
             dgvDatos.ColumnHeaderMouseClick += dgvDatos_ColumnHeaderMouseClick;
             // 
@@ -362,7 +362,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(914, 600);
+            ClientSize = new Size(914, 490);
             ControlBox = false;
             Controls.Add(splitContainer1);
             Controls.Add(toolStrip1);
