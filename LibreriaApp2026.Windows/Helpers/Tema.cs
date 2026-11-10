@@ -36,7 +36,40 @@ namespace LibreriaApp2026.Windows.Helpers
         {
             form.BackColor = Fondo;
             form.ForeColor = Texto;
+            SinBarraDeWindows(form);
             Recorrer(form);
+        }
+
+        // Quita la barra de título de Windows. Se compensa con un borde fino y con
+        // arrastre de la ventana desde la barra superior (o el fondo del form).
+        private const int WM_NCLBUTTONDOWN = 0xA1;
+        private const int HTCAPTION = 0x2;
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern bool ReleaseCapture();
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
+
+        private static void SinBarraDeWindows(Form form)
+        {
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Padding = new Padding(1);
+            form.Paint += (s, e) =>
+            {
+                using var pen = new Pen(Barra);
+                e.Graphics.DrawRectangle(pen, 0, 0, form.ClientSize.Width - 1, form.ClientSize.Height - 1);
+            };
+            form.MouseDown += Arrastrar;
+        }
+
+        private static void Arrastrar(object? sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Left || sender is not Control c) return;
+            var form = c.FindForm();
+            if (form is null) return;
+            ReleaseCapture();
+            SendMessage(form.Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
         }
 
         private static void Recorrer(Control padre)
@@ -55,6 +88,9 @@ namespace LibreriaApp2026.Windows.Helpers
                 case Panel p when p.Name == "panelTop":
                     p.BackColor = Barra;
                     p.ForeColor = BarraTexto;
+                    p.MouseDown += Arrastrar;
+                    foreach (Label l in p.Controls.OfType<Label>())
+                        l.MouseDown += Arrastrar;
                     break;
                 case Panel p when p.Name == "panelMenu":
                     p.BackColor = Menu;
@@ -82,6 +118,7 @@ namespace LibreriaApp2026.Windows.Helpers
                     t.Renderer = new ToolStripProfessionalRenderer(new ColoresToolStrip()) { RoundedEdges = false };
                     t.BackColor = Superficie;
                     t.ForeColor = Texto;
+                    t.MouseDown += Arrastrar;
                     break;
                 case TextBox or ComboBox or NumericUpDown or ListBox or CheckedListBox:
                     c.BackColor = Campo;
