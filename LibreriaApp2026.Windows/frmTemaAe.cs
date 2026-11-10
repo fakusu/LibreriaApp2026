@@ -13,6 +13,7 @@ namespace LibreriaApp2026.Windows
         public frmTemaAe(ITemaServicio temaServicio)
         {
             InitializeComponent();
+            Helpers.Tema.Aplicar(this);
             _temaServicio = temaServicio;
         }
 

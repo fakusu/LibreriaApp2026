@@ -119,7 +119,7 @@
             tsbDetalles.ImageScaling = ToolStripItemImageScaling.None;
             tsbDetalles.ImageTransparentColor = Color.Magenta;
             tsbDetalles.Name = "tsbDetalles";
-            tsbDetalles.Size = new Size(66, 72);
+            tsbDetalles.Size = new Size(67, 72);
             tsbDetalles.Text = "&Detalles";
             tsbDetalles.TextImageRelation = TextImageRelation.ImageAboveText;
             tsbDetalles.Click += tsbDetalles_Click;
@@ -409,6 +409,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1282, 600);
+            ControlBox = false;
             Controls.Add(splitContainer1);
             Controls.Add(toolStrip1);
             Margin = new Padding(3, 4, 3, 4);

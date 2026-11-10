@@ -13,6 +13,7 @@ namespace LibreriaApp2026.Windows
         public frmEditorialAe(IEditorialServicio editorialServicio)
         {
             InitializeComponent();
+            Helpers.Tema.Aplicar(this);
             _editorialServicio = editorialServicio;
         }
 

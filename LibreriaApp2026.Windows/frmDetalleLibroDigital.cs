@@ -9,6 +9,7 @@ namespace LibreriaApp2026.Windows
         public frmDetalleLibroDigital()
         {
             InitializeComponent();
+            Helpers.Tema.Aplicar(this);
         }
 
         public void SetLibro(LibroDigitalDetailDto libroDto)

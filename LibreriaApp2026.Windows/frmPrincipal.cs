@@ -8,6 +8,7 @@ namespace LibreriaApp2026.Windows
         public frmPrincipal(IServiceProvider serviceProvider)
         {
             InitializeComponent();
+            Helpers.Tema.Aplicar(this);
             _serviceProvider = serviceProvider;
         }
 

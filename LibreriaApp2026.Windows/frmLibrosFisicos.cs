@@ -23,6 +23,7 @@ namespace LibreriaApp2026.Windows
         public frmLibrosFisicos(IServiceProvider serviceProvider)
         {
             InitializeComponent();
+            Helpers.Tema.Aplicar(this);
             _serviceProvider = serviceProvider;
             dgvDatos.AutoGenerateColumns = false;//solo se muestran las columnas definidas en el diseñador
             dgvDatos.DataSource = _bindingSource;
@@ -276,7 +277,7 @@ namespace LibreriaApp2026.Windows
         {
             filtroActivo = true;
             _estado.PaginaActual = 1;
-            tsbFiltrar.BackColor = Color.Orange;
+            tsbFiltrar.BackColor = Helpers.Tema.FiltroActivo;
             RecargarGrilla();
         }
 
@@ -284,7 +285,7 @@ namespace LibreriaApp2026.Windows
         {
             filtroActivo = false;
             _estado.PaginaActual = 1;
-            tsbFiltrar.BackColor = Color.Orange;
+            tsbFiltrar.BackColor = Helpers.Tema.FiltroActivo;
             RecargarGrilla();
         }
 
@@ -301,7 +302,7 @@ namespace LibreriaApp2026.Windows
             textoBuscar = null;
             txtBuscar.Clear();
             _estado.PaginaActual = 1;
-            tsbFiltrar.BackColor = SystemColors.Control;
+            tsbFiltrar.BackColor = Helpers.Tema.FiltroInactivo;
             RecargarGrilla();
         }
 

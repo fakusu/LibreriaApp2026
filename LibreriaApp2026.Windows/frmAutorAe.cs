@@ -14,6 +14,7 @@ namespace LibreriaApp2026.Windows
         public frmAutorAe(IAutorServicio autorServicio)
         {
             InitializeComponent();
+            Helpers.Tema.Aplicar(this);
             _autorServicio = autorServicio;
         }
 

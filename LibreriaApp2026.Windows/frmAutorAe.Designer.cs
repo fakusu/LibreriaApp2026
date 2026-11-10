@@ -43,119 +43,127 @@ namespace LibreriaApp2026.Windows
             chkActivo = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
-            //
+            // 
             // label1
-            //
+            // 
             label1.AutoSize = true;
-            label1.Location = new Point(45, 28);
+            label1.Location = new Point(51, 37);
             label1.Name = "label1";
-            label1.Size = new Size(54, 15);
+            label1.Size = new Size(67, 20);
             label1.TabIndex = 0;
             label1.Text = "Nombre:";
-            //
+            // 
             // txtNombre
-            //
-            txtNombre.Location = new Point(173, 25);
+            // 
+            txtNombre.Location = new Point(198, 33);
+            txtNombre.Margin = new Padding(3, 4, 3, 4);
             txtNombre.MaxLength = 50;
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(284, 23);
+            txtNombre.Size = new Size(324, 27);
             txtNombre.TabIndex = 1;
-            //
+            // 
             // label2
-            //
+            // 
             label2.AutoSize = true;
-            label2.Location = new Point(45, 63);
+            label2.Location = new Point(51, 84);
             label2.Name = "label2";
-            label2.Size = new Size(54, 15);
+            label2.Size = new Size(69, 20);
             label2.TabIndex = 2;
             label2.Text = "Apellido:";
-            //
+            // 
             // txtApellido
-            //
-            txtApellido.Location = new Point(173, 60);
+            // 
+            txtApellido.Location = new Point(198, 80);
+            txtApellido.Margin = new Padding(3, 4, 3, 4);
             txtApellido.MaxLength = 50;
             txtApellido.Name = "txtApellido";
-            txtApellido.Size = new Size(284, 23);
+            txtApellido.Size = new Size(324, 27);
             txtApellido.TabIndex = 3;
-            //
+            // 
             // label3
-            //
+            // 
             label3.AutoSize = true;
-            label3.Location = new Point(45, 98);
+            label3.Location = new Point(51, 131);
             label3.Name = "label3";
-            label3.Size = new Size(122, 15);
+            label3.Size = new Size(149, 20);
             label3.TabIndex = 4;
             label3.Text = "Fecha de nacimiento:";
-            //
+            // 
             // dtpFechaNacimiento
-            //
+            // 
             dtpFechaNacimiento.Format = DateTimePickerFormat.Short;
-            dtpFechaNacimiento.Location = new Point(173, 95);
+            dtpFechaNacimiento.Location = new Point(198, 127);
+            dtpFechaNacimiento.Margin = new Padding(3, 4, 3, 4);
             dtpFechaNacimiento.Name = "dtpFechaNacimiento";
-            dtpFechaNacimiento.Size = new Size(140, 23);
+            dtpFechaNacimiento.Size = new Size(159, 27);
             dtpFechaNacimiento.TabIndex = 5;
-            //
+            // 
             // label4
-            //
+            // 
             label4.AutoSize = true;
-            label4.Location = new Point(45, 133);
+            label4.Location = new Point(51, 177);
             label4.Name = "label4";
-            label4.Size = new Size(80, 15);
+            label4.Size = new Size(101, 20);
             label4.TabIndex = 6;
             label4.Text = "Nacionalidad:";
-            //
+            // 
             // txtNacionalidad
-            //
-            txtNacionalidad.Location = new Point(173, 130);
+            // 
+            txtNacionalidad.Location = new Point(198, 173);
+            txtNacionalidad.Margin = new Padding(3, 4, 3, 4);
             txtNacionalidad.MaxLength = 50;
             txtNacionalidad.Name = "txtNacionalidad";
-            txtNacionalidad.Size = new Size(284, 23);
+            txtNacionalidad.Size = new Size(324, 27);
             txtNacionalidad.TabIndex = 7;
-            //
+            // 
             // errorProvider1
-            //
+            // 
             errorProvider1.ContainerControl = this;
-            //
-            // chkActivo
-            //
-            chkActivo.AutoSize = true;
-            chkActivo.CheckAlign = ContentAlignment.MiddleRight;
-            chkActivo.Location = new Point(45, 168);
-            chkActivo.Name = "chkActivo";
-            chkActivo.Size = new Size(65, 19);
-            chkActivo.TabIndex = 8;
-            chkActivo.Text = "Activo?";
-            chkActivo.UseVisualStyleBackColor = true;
-            //
+            // 
             // btnOK
-            //
+            // 
             btnOK.Image = Properties.Resources.ok_24px;
-            btnOK.Location = new Point(49, 205);
+            btnOK.Location = new Point(56, 273);
+            btnOK.Margin = new Padding(3, 4, 3, 4);
             btnOK.Name = "btnOK";
-            btnOK.Size = new Size(75, 60);
+            btnOK.Size = new Size(86, 80);
             btnOK.TabIndex = 9;
             btnOK.Text = "OK";
             btnOK.TextImageRelation = TextImageRelation.ImageAboveText;
             btnOK.UseVisualStyleBackColor = true;
             btnOK.Click += btnOK_Click;
-            //
+            // 
             // btnCancelar
-            //
+            // 
             btnCancelar.Image = Properties.Resources.cancel_24px;
-            btnCancelar.Location = new Point(382, 205);
+            btnCancelar.Location = new Point(437, 273);
+            btnCancelar.Margin = new Padding(3, 4, 3, 4);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(75, 60);
+            btnCancelar.Size = new Size(86, 80);
             btnCancelar.TabIndex = 10;
             btnCancelar.Text = "Cancelar";
             btnCancelar.TextImageRelation = TextImageRelation.ImageAboveText;
             btnCancelar.UseVisualStyleBackColor = true;
             btnCancelar.Click += btnCancelar_Click;
-            //
+            // 
+            // chkActivo
+            // 
+            chkActivo.AutoSize = true;
+            chkActivo.CheckAlign = ContentAlignment.MiddleRight;
+            chkActivo.Location = new Point(51, 224);
+            chkActivo.Margin = new Padding(3, 4, 3, 4);
+            chkActivo.Name = "chkActivo";
+            chkActivo.Size = new Size(80, 24);
+            chkActivo.TabIndex = 8;
+            chkActivo.Text = "Activo?";
+            chkActivo.UseVisualStyleBackColor = true;
+            // 
             // frmAutorAe
-            //
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(520, 290);
+            ClientSize = new Size(594, 387);
+            ControlBox = false;
             Controls.Add(chkActivo);
             Controls.Add(btnCancelar);
             Controls.Add(btnOK);
@@ -168,6 +176,7 @@ namespace LibreriaApp2026.Windows
             Controls.Add(txtNombre);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "frmAutorAe";

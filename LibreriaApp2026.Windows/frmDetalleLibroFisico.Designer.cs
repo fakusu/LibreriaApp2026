@@ -57,189 +57,213 @@
             // lblTitulo
             // 
             lblTitulo.AutoSize = true;
-            lblTitulo.Location = new Point(15, 18);
+            lblTitulo.Location = new Point(17, 24);
             lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(50, 20);
             lblTitulo.TabIndex = 0;
             lblTitulo.Text = "Título:";
             // 
             // txtTitulo
             // 
-            txtTitulo.Location = new Point(110, 15);
+            txtTitulo.Location = new Point(126, 20);
+            txtTitulo.Margin = new Padding(3, 4, 3, 4);
             txtTitulo.Name = "txtTitulo";
             txtTitulo.ReadOnly = true;
-            txtTitulo.Size = new Size(470, 23);
+            txtTitulo.Size = new Size(537, 27);
             txtTitulo.TabIndex = 1;
             // 
             // lblIsbn
             // 
             lblIsbn.AutoSize = true;
-            lblIsbn.Location = new Point(15, 50);
+            lblIsbn.Location = new Point(17, 67);
             lblIsbn.Name = "lblIsbn";
+            lblIsbn.Size = new Size(44, 20);
             lblIsbn.TabIndex = 2;
             lblIsbn.Text = "ISBN:";
             // 
             // txtIsbn
             // 
-            txtIsbn.Location = new Point(110, 47);
+            txtIsbn.Location = new Point(126, 63);
+            txtIsbn.Margin = new Padding(3, 4, 3, 4);
             txtIsbn.Name = "txtIsbn";
             txtIsbn.ReadOnly = true;
-            txtIsbn.Size = new Size(170, 23);
+            txtIsbn.Size = new Size(194, 27);
             txtIsbn.TabIndex = 3;
             // 
             // lblAnio
             // 
             lblAnio.AutoSize = true;
-            lblAnio.Location = new Point(320, 50);
+            lblAnio.Location = new Point(366, 67);
             lblAnio.Name = "lblAnio";
+            lblAnio.Size = new Size(39, 20);
             lblAnio.TabIndex = 4;
             lblAnio.Text = "Año:";
             // 
             // txtAnio
             // 
-            txtAnio.Location = new Point(410, 47);
+            txtAnio.Location = new Point(469, 63);
+            txtAnio.Margin = new Padding(3, 4, 3, 4);
             txtAnio.Name = "txtAnio";
             txtAnio.ReadOnly = true;
-            txtAnio.Size = new Size(170, 23);
+            txtAnio.Size = new Size(194, 27);
             txtAnio.TabIndex = 5;
             // 
             // lblEditorial
             // 
             lblEditorial.AutoSize = true;
-            lblEditorial.Location = new Point(15, 82);
+            lblEditorial.Location = new Point(17, 109);
             lblEditorial.Name = "lblEditorial";
+            lblEditorial.Size = new Size(68, 20);
             lblEditorial.TabIndex = 6;
             lblEditorial.Text = "Editorial:";
             // 
             // txtEditorial
             // 
-            txtEditorial.Location = new Point(110, 79);
+            txtEditorial.Location = new Point(126, 105);
+            txtEditorial.Margin = new Padding(3, 4, 3, 4);
             txtEditorial.Name = "txtEditorial";
             txtEditorial.ReadOnly = true;
-            txtEditorial.Size = new Size(470, 23);
+            txtEditorial.Size = new Size(537, 27);
             txtEditorial.TabIndex = 7;
             // 
             // lblPrecio
             // 
             lblPrecio.AutoSize = true;
-            lblPrecio.Location = new Point(15, 114);
+            lblPrecio.Location = new Point(17, 152);
             lblPrecio.Name = "lblPrecio";
+            lblPrecio.Size = new Size(53, 20);
             lblPrecio.TabIndex = 8;
             lblPrecio.Text = "Precio:";
             // 
             // txtPrecio
             // 
-            txtPrecio.Location = new Point(110, 111);
+            txtPrecio.Location = new Point(126, 148);
+            txtPrecio.Margin = new Padding(3, 4, 3, 4);
             txtPrecio.Name = "txtPrecio";
             txtPrecio.ReadOnly = true;
-            txtPrecio.Size = new Size(170, 23);
+            txtPrecio.Size = new Size(194, 27);
             txtPrecio.TabIndex = 9;
             // 
             // lblStock
             // 
             lblStock.AutoSize = true;
-            lblStock.Location = new Point(320, 114);
+            lblStock.Location = new Point(366, 152);
             lblStock.Name = "lblStock";
+            lblStock.Size = new Size(48, 20);
             lblStock.TabIndex = 10;
             lblStock.Text = "Stock:";
             // 
             // txtStock
             // 
-            txtStock.Location = new Point(410, 111);
+            txtStock.Location = new Point(469, 148);
+            txtStock.Margin = new Padding(3, 4, 3, 4);
             txtStock.Name = "txtStock";
             txtStock.ReadOnly = true;
-            txtStock.Size = new Size(170, 23);
+            txtStock.Size = new Size(194, 27);
             txtStock.TabIndex = 11;
             // 
             // lblPaginas
             // 
             lblPaginas.AutoSize = true;
-            lblPaginas.Location = new Point(15, 146);
+            lblPaginas.Location = new Point(17, 195);
             lblPaginas.Name = "lblPaginas";
+            lblPaginas.Size = new Size(62, 20);
             lblPaginas.TabIndex = 12;
             lblPaginas.Text = "Páginas:";
             // 
             // txtPaginas
             // 
-            txtPaginas.Location = new Point(110, 143);
+            txtPaginas.Location = new Point(126, 191);
+            txtPaginas.Margin = new Padding(3, 4, 3, 4);
             txtPaginas.Name = "txtPaginas";
             txtPaginas.ReadOnly = true;
-            txtPaginas.Size = new Size(170, 23);
+            txtPaginas.Size = new Size(194, 27);
             txtPaginas.TabIndex = 13;
             // 
             // lblPeso
             // 
             lblPeso.AutoSize = true;
-            lblPeso.Location = new Point(320, 146);
+            lblPeso.Location = new Point(366, 195);
             lblPeso.Name = "lblPeso";
+            lblPeso.Size = new Size(65, 20);
             lblPeso.TabIndex = 14;
             lblPeso.Text = "Peso (g):";
             // 
             // txtPeso
             // 
-            txtPeso.Location = new Point(410, 143);
+            txtPeso.Location = new Point(469, 191);
+            txtPeso.Margin = new Padding(3, 4, 3, 4);
             txtPeso.Name = "txtPeso";
             txtPeso.ReadOnly = true;
-            txtPeso.Size = new Size(170, 23);
+            txtPeso.Size = new Size(194, 27);
             txtPeso.TabIndex = 15;
             // 
             // lblDescripcion
             // 
             lblDescripcion.AutoSize = true;
-            lblDescripcion.Location = new Point(15, 210);
+            lblDescripcion.Location = new Point(17, 280);
             lblDescripcion.Name = "lblDescripcion";
+            lblDescripcion.Size = new Size(90, 20);
             lblDescripcion.TabIndex = 16;
             lblDescripcion.Text = "Descripción:";
             // 
             // txtDescripcion
             // 
-            txtDescripcion.Location = new Point(110, 207);
+            txtDescripcion.Location = new Point(126, 276);
+            txtDescripcion.Margin = new Padding(3, 4, 3, 4);
             txtDescripcion.Multiline = true;
-            txtDescripcion.ScrollBars = ScrollBars.Vertical;
             txtDescripcion.Name = "txtDescripcion";
             txtDescripcion.ReadOnly = true;
-            txtDescripcion.Size = new Size(470, 60);
+            txtDescripcion.ScrollBars = ScrollBars.Vertical;
+            txtDescripcion.Size = new Size(537, 79);
             txtDescripcion.TabIndex = 17;
             // 
             // lblAutores
             // 
             lblAutores.AutoSize = true;
-            lblAutores.Location = new Point(15, 280);
+            lblAutores.Location = new Point(17, 373);
             lblAutores.Name = "lblAutores";
+            lblAutores.Size = new Size(63, 20);
             lblAutores.TabIndex = 18;
             lblAutores.Text = "Autores:";
             // 
             // lstAutores
             // 
             lstAutores.FormattingEnabled = true;
-            lstAutores.Location = new Point(15, 300);
+            lstAutores.Location = new Point(17, 400);
+            lstAutores.Margin = new Padding(3, 4, 3, 4);
             lstAutores.Name = "lstAutores";
             lstAutores.SelectionMode = SelectionMode.None;
-            lstAutores.Size = new Size(260, 124);
+            lstAutores.Size = new Size(297, 164);
             lstAutores.TabIndex = 19;
             // 
             // lblTemas
             // 
             lblTemas.AutoSize = true;
-            lblTemas.Location = new Point(320, 280);
+            lblTemas.Location = new Point(366, 373);
             lblTemas.Name = "lblTemas";
+            lblTemas.Size = new Size(54, 20);
             lblTemas.TabIndex = 20;
             lblTemas.Text = "Temas:";
             // 
             // lstTemas
             // 
             lstTemas.FormattingEnabled = true;
-            lstTemas.Location = new Point(320, 300);
+            lstTemas.Location = new Point(366, 400);
+            lstTemas.Margin = new Padding(3, 4, 3, 4);
             lstTemas.Name = "lstTemas";
             lstTemas.SelectionMode = SelectionMode.None;
-            lstTemas.Size = new Size(260, 124);
+            lstTemas.Size = new Size(297, 164);
             lstTemas.TabIndex = 21;
             // 
             // chkActivo
             // 
             chkActivo.AutoCheck = false;
             chkActivo.AutoSize = true;
-            chkActivo.Location = new Point(15, 445);
+            chkActivo.Location = new Point(17, 593);
+            chkActivo.Margin = new Padding(3, 4, 3, 4);
             chkActivo.Name = "chkActivo";
+            chkActivo.Size = new Size(73, 24);
             chkActivo.TabIndex = 22;
             chkActivo.Text = "Activo";
             chkActivo.UseVisualStyleBackColor = true;
@@ -248,9 +272,10 @@
             // 
             btnCerrar.DialogResult = DialogResult.Cancel;
             btnCerrar.Image = Properties.Resources.cancel_24px;
-            btnCerrar.Location = new Point(505, 435);
+            btnCerrar.Location = new Point(577, 580);
+            btnCerrar.Margin = new Padding(3, 4, 3, 4);
             btnCerrar.Name = "btnCerrar";
-            btnCerrar.Size = new Size(75, 60);
+            btnCerrar.Size = new Size(86, 80);
             btnCerrar.TabIndex = 23;
             btnCerrar.Text = "Cerrar";
             btnCerrar.TextImageRelation = TextImageRelation.ImageAboveText;
@@ -259,10 +284,11 @@
             // 
             // frmDetalleLibroFisico
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCerrar;
-            ClientSize = new Size(600, 510);
+            ClientSize = new Size(686, 680);
+            ControlBox = false;
             Controls.Add(btnCerrar);
             Controls.Add(chkActivo);
             Controls.Add(lstTemas);
@@ -288,6 +314,7 @@
             Controls.Add(txtTitulo);
             Controls.Add(lblTitulo);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "frmDetalleLibroFisico";

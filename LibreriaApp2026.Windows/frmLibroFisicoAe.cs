@@ -21,6 +21,7 @@ namespace LibreriaApp2026.Windows
             IAutorServicio autorServicio, ITemaServicio temaServicio)
         {
             InitializeComponent();
+            Helpers.Tema.Aplicar(this);
             _selectorAutores = new SeleccionMultiple(txtBuscarAutores, clbAutores, chkSoloAutores, lblCantidadAutores);
             _selectorTemas = new SeleccionMultiple(txtBuscarTemas, clbTemas, chkSoloTemas, lblCantidadTemas);
             _libroServicio = libroServicio;

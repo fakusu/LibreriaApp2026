@@ -9,6 +9,7 @@ namespace LibreriaApp2026.Windows
         public frmDetalleLibroFisico()
         {
             InitializeComponent();
+            Helpers.Tema.Aplicar(this);
         }
 
         public void SetLibro(LibroFisicoDetailDto libroDto)

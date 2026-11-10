@@ -363,6 +363,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(914, 600);
+            ControlBox = false;
             Controls.Add(splitContainer1);
             Controls.Add(toolStrip1);
             Margin = new Padding(3, 4, 3, 4);

@@ -47,6 +47,13 @@
             tsbCerrar = new ToolStripButton();
             splitContainer1 = new SplitContainer();
             dgvDatos = new DataGridView();
+            colId = new DataGridViewTextBoxColumn();
+            colTitulo = new DataGridViewTextBoxColumn();
+            colAutores = new DataGridViewTextBoxColumn();
+            colEditorial = new DataGridViewTextBoxColumn();
+            colPrecio = new DataGridViewTextBoxColumn();
+            colStock = new DataGridViewTextBoxColumn();
+            colActivo = new DataGridViewCheckBoxColumn();
             btnUltimo = new Button();
             btnSiguiente = new Button();
             btnAnterior = new Button();
@@ -55,13 +62,6 @@
             lblCantidad = new Label();
             label2 = new Label();
             label1 = new Label();
-            colId = new DataGridViewTextBoxColumn();
-            colTitulo = new DataGridViewTextBoxColumn();
-            colAutores = new DataGridViewTextBoxColumn();
-            colEditorial = new DataGridViewTextBoxColumn();
-            colPrecio = new DataGridViewTextBoxColumn();
-            colStock = new DataGridViewTextBoxColumn();
-            colActivo = new DataGridViewCheckBoxColumn();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -119,7 +119,7 @@
             tsbDetalles.ImageScaling = ToolStripItemImageScaling.None;
             tsbDetalles.ImageTransparentColor = Color.Magenta;
             tsbDetalles.Name = "tsbDetalles";
-            tsbDetalles.Size = new Size(66, 72);
+            tsbDetalles.Size = new Size(67, 72);
             tsbDetalles.Text = "&Detalles";
             tsbDetalles.TextImageRelation = TextImageRelation.ImageAboveText;
             tsbDetalles.Click += tsbDetalles_Click;
@@ -256,6 +256,73 @@
             dgvDatos.CellDoubleClick += dgvDatos_CellDoubleClick;
             dgvDatos.ColumnHeaderMouseClick += dgvDatos_ColumnHeaderMouseClick;
             // 
+            // colId
+            // 
+            colId.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colId.DataPropertyName = "ProductoId";
+            colId.HeaderText = "Id";
+            colId.MinimumWidth = 6;
+            colId.Name = "colId";
+            colId.ReadOnly = true;
+            colId.Visible = false;
+            // 
+            // colTitulo
+            // 
+            colTitulo.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colTitulo.DataPropertyName = "Titulo";
+            colTitulo.HeaderText = "Título";
+            colTitulo.MinimumWidth = 6;
+            colTitulo.Name = "colTitulo";
+            colTitulo.ReadOnly = true;
+            // 
+            // colAutores
+            // 
+            colAutores.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colAutores.DataPropertyName = "Autores";
+            colAutores.HeaderText = "Autores";
+            colAutores.MinimumWidth = 6;
+            colAutores.Name = "colAutores";
+            colAutores.ReadOnly = true;
+            // 
+            // colEditorial
+            // 
+            colEditorial.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colEditorial.DataPropertyName = "Editorial";
+            colEditorial.HeaderText = "Editorial";
+            colEditorial.MinimumWidth = 6;
+            colEditorial.Name = "colEditorial";
+            colEditorial.ReadOnly = true;
+            // 
+            // colPrecio
+            // 
+            colPrecio.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colPrecio.DataPropertyName = "Precio";
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "C2";
+            colPrecio.DefaultCellStyle = dataGridViewCellStyle2;
+            colPrecio.HeaderText = "Precio";
+            colPrecio.MinimumWidth = 6;
+            colPrecio.Name = "colPrecio";
+            colPrecio.ReadOnly = true;
+            // 
+            // colStock
+            // 
+            colStock.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colStock.DataPropertyName = "Stock";
+            colStock.HeaderText = "Stock";
+            colStock.MinimumWidth = 6;
+            colStock.Name = "colStock";
+            colStock.ReadOnly = true;
+            // 
+            // colActivo
+            // 
+            colActivo.DataPropertyName = "Activo";
+            colActivo.HeaderText = "Activo";
+            colActivo.MinimumWidth = 6;
+            colActivo.Name = "colActivo";
+            colActivo.ReadOnly = true;
+            colActivo.Width = 57;
+            // 
             // btnUltimo
             // 
             btnUltimo.Image = Properties.Resources.last_24px;
@@ -338,78 +405,12 @@
             label1.TabIndex = 4;
             label1.Text = "Cantidad de Registros:";
             // 
-            // colId
-            // 
-            colId.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colId.DataPropertyName = "ProductoId";
-            colId.HeaderText = "Id";
-            colId.MinimumWidth = 6;
-            colId.Name = "colId";
-            colId.ReadOnly = true;
-            colId.Visible = false;
-            // 
-            // colTitulo
-            // 
-            colTitulo.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colTitulo.DataPropertyName = "Titulo";
-            colTitulo.HeaderText = "Título";
-            colTitulo.MinimumWidth = 6;
-            colTitulo.Name = "colTitulo";
-            colTitulo.ReadOnly = true;
-            // 
-            // colAutores
-            // 
-            colAutores.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colAutores.DataPropertyName = "Autores";
-            colAutores.HeaderText = "Autores";
-            colAutores.MinimumWidth = 6;
-            colAutores.Name = "colAutores";
-            colAutores.ReadOnly = true;
-            // 
-            // colEditorial
-            // 
-            colEditorial.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colEditorial.DataPropertyName = "Editorial";
-            colEditorial.HeaderText = "Editorial";
-            colEditorial.MinimumWidth = 6;
-            colEditorial.Name = "colEditorial";
-            colEditorial.ReadOnly = true;
-            // 
-            // colPrecio
-            // 
-            colPrecio.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colPrecio.DataPropertyName = "Precio";
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "C2";
-            colPrecio.DefaultCellStyle = dataGridViewCellStyle2;
-            colPrecio.HeaderText = "Precio";
-            colPrecio.MinimumWidth = 6;
-            colPrecio.Name = "colPrecio";
-            colPrecio.ReadOnly = true;
-            // 
-            // colStock
-            // 
-            colStock.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colStock.DataPropertyName = "Stock";
-            colStock.HeaderText = "Stock";
-            colStock.MinimumWidth = 6;
-            colStock.Name = "colStock";
-            colStock.ReadOnly = true;
-            // 
-            // colActivo
-            // 
-            colActivo.DataPropertyName = "Activo";
-            colActivo.HeaderText = "Activo";
-            colActivo.MinimumWidth = 6;
-            colActivo.Name = "colActivo";
-            colActivo.ReadOnly = true;
-            colActivo.Width = 57;
-            // 
             // frmLibrosFisicos
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1282, 600);
+            ControlBox = false;
             Controls.Add(splitContainer1);
             Controls.Add(toolStrip1);
             Margin = new Padding(3, 4, 3, 4);
