@@ -34,6 +34,9 @@ namespace LibreriaApp2026.Windows
             btnSalir = new Button();
             label1 = new Label();
             panelMenu = new Panel();
+            btnVentas = new Button();
+            btnFormasDePago = new Button();
+            btnClientes = new Button();
             btnLibrosDigitales = new Button();
             btnLibrosFisicos = new Button();
             btnTemas = new Button();
@@ -102,6 +105,9 @@ namespace LibreriaApp2026.Windows
             // 
             // panelMenu
             // 
+            panelMenu.Controls.Add(btnVentas);
+            panelMenu.Controls.Add(btnFormasDePago);
+            panelMenu.Controls.Add(btnClientes);
             panelMenu.Controls.Add(btnLibrosDigitales);
             panelMenu.Controls.Add(btnLibrosFisicos);
             panelMenu.Controls.Add(btnTemas);
@@ -113,6 +119,39 @@ namespace LibreriaApp2026.Windows
             panelMenu.Name = "panelMenu";
             panelMenu.Size = new Size(272, 620);
             panelMenu.TabIndex = 2;
+            // 
+            // btnClientes
+            // 
+            btnClientes.Location = new Point(42, 345);
+            btnClientes.Margin = new Padding(3, 4, 3, 4);
+            btnClientes.Name = "btnClientes";
+            btnClientes.Size = new Size(195, 49);
+            btnClientes.TabIndex = 5;
+            btnClientes.Text = "Clientes";
+            btnClientes.UseVisualStyleBackColor = true;
+            btnClientes.Click += btnClientes_Click;
+            // 
+            // btnFormasDePago
+            // 
+            btnFormasDePago.Location = new Point(42, 402);
+            btnFormasDePago.Margin = new Padding(3, 4, 3, 4);
+            btnFormasDePago.Name = "btnFormasDePago";
+            btnFormasDePago.Size = new Size(195, 49);
+            btnFormasDePago.TabIndex = 6;
+            btnFormasDePago.Text = "Formas de Pago";
+            btnFormasDePago.UseVisualStyleBackColor = true;
+            btnFormasDePago.Click += btnFormasDePago_Click;
+            // 
+            // btnVentas
+            // 
+            btnVentas.Location = new Point(42, 459);
+            btnVentas.Margin = new Padding(3, 4, 3, 4);
+            btnVentas.Name = "btnVentas";
+            btnVentas.Size = new Size(195, 49);
+            btnVentas.TabIndex = 7;
+            btnVentas.Text = "Ventas";
+            btnVentas.UseVisualStyleBackColor = true;
+            btnVentas.Click += btnVentas_Click;
             // 
             // btnLibrosDigitales
             // 
@@ -233,6 +272,9 @@ namespace LibreriaApp2026.Windows
         private Button btnTemas;
         private Button btnLibrosFisicos;
         private Button btnLibrosDigitales;
+        private Button btnClientes;
+        private Button btnFormasDePago;
+        private Button btnVentas;
         private Panel panelContent;
         private Label label4;
         private Label label3;

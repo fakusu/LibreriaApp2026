@@ -12,8 +12,8 @@ namespace LibreriaApp2026.Datos.Repositorios
 
         public bool EstaRelacionado(LibroFisico libroFisico)
         {
-            //luego relacionar con Packs (tabla DetallesPacks)
-            return false;
+            //no se puede borrar un libro que ya se vendió (más adelante también los Packs)
+            return _context.DetallesVentas.Any(d => d.ProductoId == libroFisico.ProductoId);
         }
 
         public bool Existe(LibroFisico libroFisico)

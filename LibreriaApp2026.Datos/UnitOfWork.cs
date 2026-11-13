@@ -11,12 +11,18 @@ namespace LibreriaApp2026.Datos
         public ITemaRepositorio Temas { get; }
         public ILibroFisicoRepositorio LibrosFisicos { get; }
         public ILibroDigitalRepositorio LibrosDigitales { get; }
+        public IClienteRepositorio Clientes { get; }
+        public IFormaDePagoRepositorio FormasDePago { get; }
+        public IVentaRepositorio Ventas { get; }
 
         public UnitOfWork(IEditorialRepositorio editorialRepositorio,
             IAutorRepositorio autorRepositorio,
             ITemaRepositorio temaRepositorio,
             ILibroFisicoRepositorio libroFisicoRepositorio,
             ILibroDigitalRepositorio libroDigitalRepositorio,
+            IClienteRepositorio clienteRepositorio,
+            IFormaDePagoRepositorio formaDePagoRepositorio,
+            IVentaRepositorio ventaRepositorio,
             LibreriaDbContext context)
         {
             Editoriales = editorialRepositorio;
@@ -24,6 +30,9 @@ namespace LibreriaApp2026.Datos
             Temas = temaRepositorio;
             LibrosFisicos = libroFisicoRepositorio;
             LibrosDigitales = libroDigitalRepositorio;
+            Clientes = clienteRepositorio;
+            FormasDePago = formaDePagoRepositorio;
+            Ventas = ventaRepositorio;
             _context = context;
         }
 

@@ -1,4 +1,4 @@
--- Datos de prueba: más autores, editoriales, temas y libros (físicos y digitales)
+-- Datos de prueba: más autores, editoriales, temas, clientes y libros (físicos y digitales)
 -- Solo agrega registros; no modifica ni borra lo existente. Se puede ejecutar más de una vez
 -- (cada autor, editorial, tema y libro se inserta solo si todavía no existe).
 -- Ejecutar con codificación UTF-8:  sqlcmd -S . -E -C -f 65001 -i DatosDePrueba.sql
@@ -45,6 +45,18 @@ FROM (VALUES
     (N'Ensayo',   N'Textos de reflexión y análisis')
 ) v (Nombre, Descripcion)
 WHERE NOT EXISTS (SELECT 1 FROM Temas t WHERE t.Nombre = v.Nombre);
+
+-- Clientes (requiere haber ejecutado antes AgregarVentas.sql)
+INSERT INTO Clientes (Nombre, Apellido, Documento, Email, Telefono, Calle, Numero, Localidad, Provincia, CodigoPostal, Activo)
+SELECT v.Nombre, v.Apellido, v.Documento, v.Email, v.Telefono, v.Calle, v.Numero, v.Localidad, v.Provincia, v.CP, 1
+FROM (VALUES
+    (N'Lucía',   N'Fernández', N'30111222', N'lucia.fernandez@mail.com', N'11-4555-1234', N'Av. Corrientes', N'1520', N'CABA',         N'Buenos Aires', N'1042'),
+    (N'Martín',  N'Gómez',     N'28999888', N'martin.gomez@mail.com',    N'351-422-9876', N'Bv. San Juan',   N'845',  N'Córdoba',      N'Córdoba',      N'5000'),
+    (N'Sofía',   N'Rodríguez', N'35444555', N'sofia.rodriguez@mail.com', N'341-15-667788', N'Pellegrini',    N'1200', N'Rosario',      N'Santa Fe',     N'2000'),
+    (N'Diego',   N'López',     N'25777666', NULL,                        N'11-15-3344-5566', NULL,           NULL,    NULL,            NULL,            NULL),
+    (N'Valeria', N'Martínez',  N'33222111', N'vale.martinez@mail.com',   NULL,             N'Calle 7',       N'930',  N'La Plata',     N'Buenos Aires', N'1900')
+) v (Nombre, Apellido, Documento, Email, Telefono, Calle, Numero, Localidad, Provincia, CP)
+WHERE NOT EXISTS (SELECT 1 FROM Clientes c WHERE c.Documento = v.Documento);
 
 -- Libros a cargar. Tipo: F = físico, D = digital
 CREATE TABLE #L

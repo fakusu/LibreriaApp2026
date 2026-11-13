@@ -2,6 +2,9 @@ using LibreriaApp2026.Datos;
 using LibreriaApp2026.Datos.Interfaces;
 using LibreriaApp2026.Datos.Repositorios;
 using LibreriaApp2026.Servicios.DTOs.Autor;
+using LibreriaApp2026.Servicios.DTOs.Cliente;
+using LibreriaApp2026.Servicios.DTOs.FormaDePago;
+using LibreriaApp2026.Servicios.DTOs.Venta;
 using LibreriaApp2026.Servicios.DTOs.Editorial;
 using LibreriaApp2026.Servicios.DTOs.LibroDigital;
 using LibreriaApp2026.Servicios.DTOs.LibroFisico;
@@ -44,6 +47,20 @@ namespace LibreriaApp2026.Ioc
             services.AddScoped<ILibroDigitalServicio, LibroDigitalServicio>();
             services.AddScoped<IValidator<LibroDigitalCreateDto>, LibroDigitalCreateDtoValidator>();
             services.AddScoped<IValidator<LibroDigitalUpdateDto>, LibroDigitalUpdateDtoValidator>();
+
+            services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
+            services.AddScoped<IClienteServicio, ClienteServicio>();
+            services.AddScoped<IValidator<ClienteCreateDto>, ClienteCreateDtoValidator>();
+            services.AddScoped<IValidator<ClienteUpdateDto>, ClienteUpdateDtoValidator>();
+
+            services.AddScoped<IFormaDePagoRepositorio, FormaDePagoRepositorio>();
+            services.AddScoped<IFormaDePagoServicio, FormaDePagoServicio>();
+            services.AddScoped<IValidator<FormaDePagoCreateDto>, FormaDePagoCreateDtoValidator>();
+            services.AddScoped<IValidator<FormaDePagoUpdateDto>, FormaDePagoUpdateDtoValidator>();
+
+            services.AddScoped<IVentaRepositorio, VentaRepositorio>();
+            services.AddScoped<IVentaServicio, VentaServicio>();
+            services.AddScoped<IValidator<VentaCreateDto>, VentaCreateDtoValidator>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             return services;

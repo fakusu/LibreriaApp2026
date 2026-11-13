@@ -9,6 +9,9 @@ namespace LibreriaApp2026.Datos
         ITemaRepositorio Temas { get; }
         ILibroFisicoRepositorio LibrosFisicos { get; }
         ILibroDigitalRepositorio LibrosDigitales { get; }
+        IClienteRepositorio Clientes { get; }
+        IFormaDePagoRepositorio FormasDePago { get; }
+        IVentaRepositorio Ventas { get; }
         void Save();
         void RollBack();
     }

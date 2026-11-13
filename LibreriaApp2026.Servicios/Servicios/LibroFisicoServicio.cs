@@ -123,7 +123,7 @@ namespace LibreriaApp2026.Servicios.Servicios
             // Regla de negocio: no se puede eliminar un libro que forma parte de un pack
             if (_unitOfWork.LibrosFisicos.EstaRelacionado(libro))
             {
-                return Result.Failure($"No se puede borrar el libro {libro.Nombre} porque forma parte de un pack.");
+                return Result.Failure($"No se puede borrar el libro {libro.Nombre} porque ya fue vendido.");
             }
 
             try
