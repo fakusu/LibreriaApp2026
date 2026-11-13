@@ -1,3 +1,4 @@
+using LibreriaApp2026.Entidades.Validaciones;
 using LibreriaApp2026.Entidades;
 using LibreriaApp2026.Servicios.DTOs.LibroDigital;
 using FluentValidation;
@@ -15,16 +16,16 @@ namespace LibreriaApp2026.Servicios.Validators
             RuleFor(x => x.Descripcion)
                 .MaximumLength(500).WithMessage("La descripción no puede superar los 500 caracteres.");
 
-            RuleFor(x => x.ISBN)
+            RuleFor(x => x.ISBN).Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("El ISBN es obligatorio.")
-                .MaximumLength(13).WithMessage("El ISBN no puede superar los 13 caracteres.");
+                .Must(Formatos.EsIsbn).WithMessage("El ISBN debe tener 10 dígitos (el último puede ser X) o 13 dígitos.");
 
             RuleFor(x => x.AnioPublicacion)
                 .InclusiveBetween(Libro.AnioMinimo, DateTime.Today.Year)
                 .WithMessage($"El año de publicación debe estar entre {Libro.AnioMinimo} y {DateTime.Today.Year}.");
 
             RuleFor(x => x.Precio)
-                .GreaterThanOrEqualTo(0).WithMessage("El precio no puede ser negativo.");
+                .GreaterThan(0).WithMessage("El precio debe ser mayor a cero.");
 
             RuleFor(x => x.EditorialId)
                 .GreaterThan(0).WithMessage("Debe seleccionar una editorial.");
@@ -42,9 +43,10 @@ namespace LibreriaApp2026.Servicios.Validators
             RuleFor(x => x.TamanioMB)
                 .GreaterThan(0).WithMessage("El tamaño debe ser mayor a cero.");
 
-            RuleFor(x => x.UrlDescarga)
+            RuleFor(x => x.UrlDescarga).Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("La URL de descarga es obligatoria.")
-                .MaximumLength(300).WithMessage("La URL de descarga no puede superar los 300 caracteres.");
+                .MaximumLength(300).WithMessage("La URL de descarga no puede superar los 300 caracteres.")
+                .Must(Formatos.EsUrl).WithMessage("La URL de descarga no es válida (ej: ejemplo.com/libro.pdf).");
         }
     }
 }

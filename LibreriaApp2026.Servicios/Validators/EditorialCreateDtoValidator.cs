@@ -1,3 +1,4 @@
+using LibreriaApp2026.Entidades.Validaciones;
 using LibreriaApp2026.Servicios.DTOs.Editorial;
 using FluentValidation;
 
@@ -11,9 +12,10 @@ namespace LibreriaApp2026.Servicios.Validators
                 .NotEmpty().WithMessage("El nombre de la editorial es obligatorio.")
                 .MaximumLength(100).WithMessage("El nombre no puede superar los 100 caracteres.");
 
-            RuleFor(x => x.PaisOrigen)
+            RuleFor(x => x.PaisOrigen).Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage("El país de origen es obligatorio.")
-                .MaximumLength(50).WithMessage("El país de origen no puede superar los 50 caracteres.");
+                .MaximumLength(50).WithMessage("El país de origen no puede superar los 50 caracteres.")
+                .Must(Formatos.EsSoloLetras).WithMessage("El país de origen solo puede tener letras, espacios, puntos y guiones.");
         }
     }
 }

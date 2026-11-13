@@ -1,3 +1,5 @@
+using LibreriaApp2026.Entidades.Validaciones;
+
 namespace LibreriaApp2026.Entidades
 {
     public abstract class Libro : Producto
@@ -19,12 +21,13 @@ namespace LibreriaApp2026.Entidades
                     throw new ArgumentException("El ISBN no puede estar vacío ni ser nulo.", nameof(value));
                 }
 
-                if (value.Trim().Length > 13)
+                //se guarda sin guiones ni espacios: "978-950-49-0001-1" -> "9789504900011"
+                if (!Formatos.EsIsbn(value))
                 {
-                    throw new ArgumentException("El ISBN no puede superar los 13 caracteres.", nameof(value));
+                    throw new ArgumentException("El ISBN debe tener 10 dígitos (el último puede ser X) o 13 dígitos.", nameof(value));
                 }
 
-                _isbn = value.Trim();
+                _isbn = Formatos.NormalizarIsbn(value);
             }
         }
 
@@ -47,9 +50,9 @@ namespace LibreriaApp2026.Entidades
             get => _precio;
             set
             {
-                if (value < 0)
+                if (value <= 0)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(value), "El precio no puede ser negativo.");
+                    throw new ArgumentOutOfRangeException(nameof(value), "El precio debe ser mayor a cero.");
                 }
 
                 _precio = value;

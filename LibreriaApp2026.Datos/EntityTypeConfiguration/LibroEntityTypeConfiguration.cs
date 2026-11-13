@@ -9,7 +9,8 @@ namespace LibreriaApp2026.Datos.EntityTypeConfiguration
         public void Configure(EntityTypeBuilder<Libro> builder)
         {
             builder.ToTable("Libros");
-            builder.Property(l => l.ISBN).IsRequired().HasMaxLength(13);
+            //al leer de la base EF usa el campo y no el setter, así un ISBN viejo con otro formato no impide listar
+            builder.Property(l => l.ISBN).IsRequired().HasMaxLength(13).HasField("_isbn");
             builder.Property(l => l.AnioPublicacion).IsRequired();
             builder.Property(l => l.Precio).IsRequired().HasColumnType("decimal(18,2)");
             builder.Property(l => l.EditorialId).IsRequired();

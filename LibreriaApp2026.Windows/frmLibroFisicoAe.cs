@@ -1,3 +1,4 @@
+using LibreriaApp2026.Entidades.Validaciones;
 using LibreriaApp2026.Entidades;
 using LibreriaApp2026.Servicios.DTOs.Editorial;
 using LibreriaApp2026.Servicios.DTOs.LibroFisico;
@@ -22,6 +23,7 @@ namespace LibreriaApp2026.Windows
         {
             InitializeComponent();
             Helpers.Tema.Aplicar(this);
+            FiltroTeclado.Isbn(txtISBN);
             _selectorAutores = new SeleccionMultiple(txtBuscarAutores, clbAutores, chkSoloAutores, lblCantidadAutores);
             _selectorTemas = new SeleccionMultiple(txtBuscarTemas, clbTemas, chkSoloTemas, lblCantidadTemas);
             _libroServicio = libroServicio;
@@ -289,6 +291,16 @@ namespace LibreriaApp2026.Windows
             {
                 valido = false;
                 errorProvider1.SetError(nudPaginas, "La cantidad de páginas debe ser mayor a cero");
+            }
+            if (!string.IsNullOrWhiteSpace(txtISBN.Text) && !Formatos.EsIsbn(txtISBN.Text))
+            {
+                valido = false;
+                errorProvider1.SetError(txtISBN, "El ISBN debe tener 10 dígitos (el último puede ser X) o 13 dígitos");
+            }
+            if (nudPrecio.Value <= 0)
+            {
+                valido = false;
+                errorProvider1.SetError(nudPrecio, "El precio debe ser mayor a cero");
             }
             return valido;
         }

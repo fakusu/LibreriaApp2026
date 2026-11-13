@@ -1,3 +1,4 @@
+using LibreriaApp2026.Entidades.Validaciones;
 using LibreriaApp2026.Servicios.DTOs.Editorial;
 using LibreriaApp2026.Servicios.Interfaces;
 using LibreriaApp2026.Windows.Helpers;
@@ -14,6 +15,7 @@ namespace LibreriaApp2026.Windows
         {
             InitializeComponent();
             Helpers.Tema.Aplicar(this);
+            FiltroTeclado.SoloLetras(txtPaisOrigen);
             _editorialServicio = editorialServicio;
         }
 
@@ -135,6 +137,11 @@ namespace LibreriaApp2026.Windows
             {
                 valido = false;
                 errorProvider1.SetError(txtPaisOrigen, "El país de origen es requerido");
+            }
+            if (!string.IsNullOrWhiteSpace(txtPaisOrigen.Text) && !Formatos.EsSoloLetras(txtPaisOrigen.Text))
+            {
+                valido = false;
+                errorProvider1.SetError(txtPaisOrigen, "Solo letras, espacios, puntos y guiones");
             }
             return valido;
         }

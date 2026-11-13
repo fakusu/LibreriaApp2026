@@ -1,3 +1,5 @@
+using LibreriaApp2026.Entidades.Validaciones;
+
 namespace LibreriaApp2026.Entidades
 {
     public class LibroDigital : Libro
@@ -52,6 +54,12 @@ namespace LibreriaApp2026.Entidades
                 if (value.Trim().Length > 300)
                 {
                     throw new ArgumentException("La URL de descarga no puede superar los 300 caracteres.", nameof(value));
+                }
+
+                //el http:// o https:// es opcional
+                if (!Formatos.EsUrl(value))
+                {
+                    throw new ArgumentException("La URL de descarga no es válida (ej: ejemplo.com/libro.pdf).", nameof(value));
                 }
 
                 _urlDescarga = value.Trim();

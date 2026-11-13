@@ -1,3 +1,4 @@
+using LibreriaApp2026.Entidades.Validaciones;
 using LibreriaApp2026.Servicios.DTOs.Autor;
 using LibreriaApp2026.Servicios.Interfaces;
 using LibreriaApp2026.Servicios.Validators;
@@ -15,6 +16,7 @@ namespace LibreriaApp2026.Windows
         {
             InitializeComponent();
             Helpers.Tema.Aplicar(this);
+            FiltroTeclado.SoloLetras(txtNombre, txtApellido, txtNacionalidad);
             _autorServicio = autorServicio;
         }
 
@@ -169,6 +171,21 @@ namespace LibreriaApp2026.Windows
             {
                 valido = false;
                 errorProvider1.SetError(txtNacionalidad, "La nacionalidad es requerida");
+            }
+            if (!string.IsNullOrWhiteSpace(txtNombre.Text) && !Formatos.EsNombrePersona(txtNombre.Text))
+            {
+                valido = false;
+                errorProvider1.SetError(txtNombre, "Solo letras, espacios, apóstrofos, guiones y puntos");
+            }
+            if (!string.IsNullOrWhiteSpace(txtApellido.Text) && !Formatos.EsNombrePersona(txtApellido.Text))
+            {
+                valido = false;
+                errorProvider1.SetError(txtApellido, "Solo letras, espacios, apóstrofos, guiones y puntos");
+            }
+            if (!string.IsNullOrWhiteSpace(txtNacionalidad.Text) && !Formatos.EsSoloLetras(txtNacionalidad.Text))
+            {
+                valido = false;
+                errorProvider1.SetError(txtNacionalidad, "Solo letras, espacios, puntos y guiones");
             }
             return valido;
         }

@@ -1,3 +1,4 @@
+using LibreriaApp2026.Entidades.Validaciones;
 using LibreriaApp2026.Entidades.Interfaces;
 
 namespace LibreriaApp2026.Entidades
@@ -41,6 +42,11 @@ namespace LibreriaApp2026.Entidades
                 if (value.Trim().Length > 50)
                 {
                     throw new ArgumentException("El país de origen no puede superar los 50 caracteres.", nameof(value));
+                }
+
+                if (!Formatos.EsSoloLetras(value))
+                {
+                    throw new ArgumentException("El país de origen solo puede tener letras, espacios, puntos y guiones.", nameof(value));
                 }
 
                 _paisOrigen = value.Trim();

@@ -1,3 +1,4 @@
+using LibreriaApp2026.Entidades.Validaciones;
 using LibreriaApp2026.Entidades.Interfaces;
 
 namespace LibreriaApp2026.Entidades
@@ -26,6 +27,11 @@ namespace LibreriaApp2026.Entidades
                     throw new ArgumentException("El nombre del autor no puede superar los 50 caracteres.", nameof(value));
                 }
 
+                if (!Formatos.EsNombrePersona(value))
+                {
+                    throw new ArgumentException("El nombre del autor solo puede tener letras, espacios, apóstrofos, guiones y puntos.", nameof(value));
+                }
+
                 _nombre = value.Trim();
             }
         }
@@ -43,6 +49,11 @@ namespace LibreriaApp2026.Entidades
                 if (value.Trim().Length > 50)
                 {
                     throw new ArgumentException("El apellido del autor no puede superar los 50 caracteres.", nameof(value));
+                }
+
+                if (!Formatos.EsNombrePersona(value))
+                {
+                    throw new ArgumentException("El apellido del autor solo puede tener letras, espacios, apóstrofos, guiones y puntos.", nameof(value));
                 }
 
                 _apellido = value.Trim();
@@ -76,6 +87,11 @@ namespace LibreriaApp2026.Entidades
                 if (value.Trim().Length > 50)
                 {
                     throw new ArgumentException("La nacionalidad no puede superar los 50 caracteres.", nameof(value));
+                }
+
+                if (!Formatos.EsSoloLetras(value))
+                {
+                    throw new ArgumentException("La nacionalidad solo puede tener letras, espacios, puntos y guiones.", nameof(value));
                 }
 
                 _nacionalidad = value.Trim();
